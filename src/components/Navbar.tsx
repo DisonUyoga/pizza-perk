@@ -29,14 +29,6 @@ const Links = [
     display: "Menu",
     path: "/menu",
   },
-  {
-    display: "Orders",
-    path: "/orders",
-  },
-  {
-    display: "Contact",
-    path: "/contact",
-  },
 ];
 
 const NavLink = ({
