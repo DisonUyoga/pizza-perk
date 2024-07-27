@@ -1,0 +1,13 @@
+.slider_container {
+  @apply flex flex-col md:h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] lg:flex-row bg-primary;
+}
+.slider_hero_header {
+  @apply flex-1 flex items-center justify-center flex-col gap-4 md:gap-8 text-gray-100 font-bold;
+}
+
+.slider_header {
+  @apply text-2xl text-center uppercase p-4 md:p-10 md:text-6xl xl:text-7xl;
+}
+.slider_hero_btn {
+  @apply bg-secondary text-white py-4 px-8;
+}

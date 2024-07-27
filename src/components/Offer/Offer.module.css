@@ -1,0 +1,18 @@
+.container {
+  @apply bg-black h-screen flex flex-col md:flex-row md:justify-between md:bg-[url('/offerBg.png')] md:h-[70vh] relative;
+}
+.child_container {
+  @apply flex-1 flex flex-col justify-center items-center text-center gap-8 p-6;
+}
+.offer_title {
+  @apply text-white text-4xl font-bold xl:text-6xl;
+}
+.offer_hero_title {
+  @apply text-white xl:text-xl;
+}
+.hero_img {
+  @apply flex-1 w-full relative md:h-full;
+}
+.floating_img {
+  @apply object-contain xl:w-24 xl:h-24 rounded-full absolute z-50 xl:top-2 xl:left-8 w-8 h-8 top-4 left-4 md:top-12 md:left-12;
+}

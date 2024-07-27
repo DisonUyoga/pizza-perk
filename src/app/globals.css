@@ -17,17 +17,20 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  @apply bg-primary;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .bg-secondary {
+    background-color: "#FF9C01";
+  }
+  .bg-primary {
+    background-color: "#161622";
+  }
+  .text-primary {
+    color: "#161622";
   }
 }

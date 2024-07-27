@@ -8,10 +8,40 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      keyframes: {
+        slideDown: {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+        slideUp: {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(-100%)" },
+        },
+      },
+      animation: {
+        slideDown: "slideDown 0.3s ease-out",
+        slideUp: "slideUp 0.3s ease-out",
+      },
+
+      aspectRatio: {
+        "4/3": "4 / 3",
+      },
+      colors: {
+        primary: "#161622",
+        secondary: {
+          DEFAULT: "#FF9C01",
+          100: "#FF9001",
+          200: "#FF8E01",
+        },
+        card: "#050152",
+        black: {
+          DEFAULT: "#000",
+          100: "#1E1E2D",
+          200: "#232533",
+        },
+        gray: {
+          100: "#CDCDE0",
+        },
       },
     },
   },

@@ -1,0 +1,57 @@
+.root {
+  @apply text-white cursor-pointer inline-flex bg-secondary rounded
+    px-10 py-5 leading-6 transition ease-in-out duration-150
+    shadow-sm text-center justify-center uppercase
+    border border-transparent items-center text-sm font-semibold
+    tracking-wide;
+  max-height: 64px;
+}
+
+.root:hover {
+  @apply opacity-30;
+}
+
+/* .root:focus {
+  @apply shadow-outline-normal outline-none;
+} */
+
+.root[data-active] {
+  @apply bg-black-100;
+}
+
+.loading {
+  @apply bg-gray-100  cursor-not-allowed;
+}
+
+.slim {
+  @apply py-2 transform-none normal-case bg-red-500;
+}
+
+.ghost {
+  @apply border   text-white text-sm;
+}
+
+.ghost:hover {
+  @apply text-primary bg-white;
+}
+
+.naked {
+  @apply bg-secondary font-semibold border-none  shadow-none outline-none;
+}
+
+.naked:hover,
+.naked:focus {
+  @apply text-primary bg-white;
+}
+
+.disabled,
+.disabled:hover {
+  @apply bg-gray-100 cursor-not-allowed;
+  filter: grayscale(1);
+  -webkit-transform: translateZ(0);
+  -webkit-perspective: 1000;
+  -webkit-backface-visibility: hidden;
+}
+
+.progress {
+}
