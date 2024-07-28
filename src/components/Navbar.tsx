@@ -29,6 +29,10 @@ const Links = [
     display: "Menu",
     path: "/menu",
   },
+  {
+    display: "Orders",
+    path: "/orders",
+  },
 ];
 
 const NavLink = ({
@@ -67,7 +71,6 @@ const Navbar = () => {
   } = useDisclosure();
   const MotionBox = motion(Box);
   const toggleClose = () => {
-    console.log("bbbbbkuguigikbjvuygkbj");
     onClose();
   };
 

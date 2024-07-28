@@ -36,6 +36,7 @@ const MenuPage = async () => {
     await createClient().auth.getSession();
   // check whether clerk user is logged in
   if (!user) {
+    await createClient().auth.signOut();
     return redirect("/sign-in");
   }
   if (!session.session) {

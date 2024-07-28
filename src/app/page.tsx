@@ -22,8 +22,8 @@ export default async function Home() {
   const { data: session, error: sessionError } =
     await createClient().auth.getSession();
   // check whether clerk user is logged in
-  console.log("user", user);
-  console.log("session", session);
+
+
 
   if (!user) {
     await createClient().auth.signOut();
