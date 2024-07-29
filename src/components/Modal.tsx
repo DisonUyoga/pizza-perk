@@ -200,7 +200,7 @@ export default async function ModalComponent({ product }: ModalProps) {
           >
             Back
           </Button>
-          <Link href={`/product/${product.id}`}>View</Link>
+        
         </ModalFooter>
       </ModalContent>
     </Modal>,
