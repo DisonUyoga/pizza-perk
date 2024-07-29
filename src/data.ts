@@ -1,3 +1,5 @@
+import { PizzaSize } from "./type";
+
 type Product = {
   id: number;
   title: string;
@@ -6,6 +8,7 @@ type Product = {
   price: number;
   options?: { title: string; additionalPrice: number }[];
 };
+export const sizes: PizzaSize[] = ["S", "M", "L", "XL"];
 
 type Products = Product[];
 

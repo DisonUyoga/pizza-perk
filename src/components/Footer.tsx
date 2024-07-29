@@ -6,9 +6,13 @@ import {
   Text,
   Link,
   useColorModeValue,
+  Button,
 } from "@chakra-ui/react";
-
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 const Footer = () => {
+  const router = useRouter();
+
   return (
     <Box
       bg={useColorModeValue("gray.300", "gray.900")}

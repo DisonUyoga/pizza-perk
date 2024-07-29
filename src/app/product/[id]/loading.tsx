@@ -3,7 +3,7 @@ import React from "react";
 
 const Loading = () => {
   return (
-    <Box flex={1} minHeight="100vh" p={4}>
+    <Box flex={1} minHeight="100vh">
       <SimpleGrid
         spacing={2}
         minChildWidth="300px"

@@ -9,6 +9,7 @@ import {
   Stack,
   useColorModeValue,
   Link,
+  Button,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import Image from "next/image";
@@ -20,6 +21,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DrawerComponent from "./ui/Drawer";
 import { useAppSelector } from "@/lib/hook";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 const Links = [
   {
     display: "Home",
@@ -64,6 +66,7 @@ const NavLink = ({
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { totalQuantity } = useAppSelector((state) => state.cart);
+  const router = useRouter();
   const {
     isOpen: openDrawer,
     onOpen: onOpenDrawer,
@@ -73,7 +76,7 @@ const Navbar = () => {
   const toggleClose = () => {
     onClose();
   };
-
+  
   return (
     <Box
       bg={useColorModeValue("#161622", "#161622")}
@@ -181,6 +184,7 @@ const Navbar = () => {
         </MotionBox>
       ) : null}
       <DrawerComponent isOpen={openDrawer} onClose={onCloseDrawer} />
+      
     </Box>
   );
 };

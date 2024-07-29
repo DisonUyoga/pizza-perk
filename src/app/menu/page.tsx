@@ -1,13 +1,11 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 
 import { menu } from "@/data";
 
-import toast from "react-hot-toast";
 
-import { useAppSelector } from "@/lib/hook";
-import { redirect, useRouter } from "next/navigation";
-import CategoryCard from "@/components/CategoryCard";
-import NextLink from "next/link";
+import ProductImage from "@/components/ProductImage";
+import { Tables } from "@/database.types";
+import { createClient } from "@/lib/supabase";
 import {
   Box,
   Card,
@@ -15,20 +13,14 @@ import {
   CardHeader,
   Heading,
   Link,
-  SimpleGrid,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  Skeleton,
+  SimpleGrid
 } from "@chakra-ui/react";
-import ProductImage from "@/components/ProductImage";
-import { createClient } from "@/lib/supabase";
-import Loading from "../loading";
+import { currentUser } from "@clerk/nextjs/server";
+import NextLink from "next/link";
+import { redirect } from "next/navigation";
 import { ErrorBoundary } from "react-error-boundary";
 import Error from "./error";
-import { Tables } from "@/database.types";
-import { currentUser } from "@clerk/nextjs/server";
+import Loading from "./loading";
 
 const MenuPage = async () => {
   const user = await currentUser();

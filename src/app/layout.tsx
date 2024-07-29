@@ -20,13 +20,10 @@ export const metadata: Metadata = {
     "Discover PizzaPerk: Your Crave-Worthy Shortcut to Delicious Pizza Bliss!",
 };
 
-export default async function RootLayout({
-  children,
-  auth,
-}: Readonly<{
+export default async function RootLayout(props: {
   children: React.ReactNode;
-  auth: React.ReactNode;
-}>) {
+  modal: React.ReactNode;
+}) {
   const user = await currentUser();
   const { data: session, error: sessionError } =
     await createClient().auth.getSession();
@@ -40,8 +37,9 @@ export default async function RootLayout({
                 <Stack minHeight="100vh" bg={"#161622"}>
                   <Navbar />
                   <Stack>
-                    {children}
-
+                    {props.children}
+                    {props.modal}
+                    <div id="modal-root" />
                     <Footer />
                   </Stack>
                 </Stack>

@@ -1,24 +1,14 @@
-import ProductCard from "@/components/ui/ProductCard";
-import { Tables } from "@/type";
-import {
-  Box,
-  Button,
-  Flex,
-  SimpleGrid,
-  Skeleton,
-  Text,
-} from "@chakra-ui/react";
-
-import toast from "react-hot-toast";
-import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase";
+import { redirect } from "next/navigation";
 import { ErrorBoundary } from "react-error-boundary";
-import Error from "../error";
+import toast from "react-hot-toast";
+
 import { Suspense } from "react";
-import Loading from "../loading";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { Box, SimpleGrid, Text } from "@chakra-ui/react";
+import Error from "../error";
 import BackButton from "@/components/BackButton";
+import ProductCard from "@/components/ui/ProductCard";
+import Loading from "./loading";
 
 interface CategoryPageProps {
   params: {
@@ -52,6 +42,7 @@ const CategoryPage = async ({ params: { category } }: CategoryPageProps) => {
           className="h-screen"
         >
           <BackButton />
+
           {data && data[0].categories?.category && (
             <Text
               color={"#fff"}
@@ -65,13 +56,15 @@ const CategoryPage = async ({ params: { category } }: CategoryPageProps) => {
             </Text>
           )}
           <SimpleGrid
-            spacing={2}
+            spacing={10}
             minChildWidth="300px"
             bg="#161622"
             position={"relative"}
             py={"20px"}
           >
-            {data && data.map((p) => <ProductCard key={p.id} product={p} />)}
+            {data &&
+              category &&
+              data.map((p) => <ProductCard key={p.id} product={p} />)}
           </SimpleGrid>
         </Box>
       </Suspense>

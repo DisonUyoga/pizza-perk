@@ -57,8 +57,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
       data-aos-duration="1500"
     >
       <LinkOverlay as={NextLink} href={`/product/${product.id}`}>
-        <Card maxW="sm" bg={"#050152"} borderRadius={5}>
-          <CardBody>
+        <Card maxW="sm" bg={"#050152"} borderRadius={5} p={0} m={0}>
+          <CardBody p={0} m={0}>
             {pizzas[0].img && (
               <Box position={"relative"} w={"100%"} h={"150px"}>
                 <ProductImage
@@ -79,48 +79,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 )}
               </Box>
             )}
-            <Flex alignItems={"center"} justifyContent={"space-between"} mt={5}>
-              {product.discount && (
-                <Text
-                  fontSize={"xs"}
-                  bg={"#ff0101"}
-                  p={"4px"}
-                  borderRadius={5}
-                  textDecoration={"line-through"}
-                  color={"#fff"}
-                >
-                  {priceTag(product.discount)}
-                </Text>
-              )}
-              <Text
-                borderRadius={5}
-                fontWeight={700}
-                fontSize={"xs"}
-                bg={"#FF9C01"}
-                p={"4px"}
-              >
-                {priceTag(product.price)}
-              </Text>
-              {product.discount && product.discount > product.price && (
-                <Text color={"#FF9C01"}>
-                  -{discountCalculator(product.price, product.discount)}
-                </Text>
-              )}
-            </Flex>
-            {description && (
-              <Box>
-                <Text pt="2" fontSize="xs" fontWeight={200} color={"#fff"}>
-                  {description}
-                </Text>
-              </Box>
-            )}
           </CardBody>
-          <Divider />
-          <CardFooter alignItems={"center"} justify={"space-between"}>
-            <AddToCartBtn product={product}>
-              <AddIcon boxSize={[3, 4]} color={"#ffff"} />
-            </AddToCartBtn>
-          </CardFooter>
         </Card>
       </LinkOverlay>
     </LinkBox>
