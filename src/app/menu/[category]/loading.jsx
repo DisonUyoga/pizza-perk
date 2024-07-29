@@ -5,7 +5,7 @@ const Loading = () => {
   return (
     <Box flex={1} minHeight="100vh">
       <SimpleGrid
-        spacing={2}
+        spacing={10}
         minChildWidth="250px"
         bg="#161622"
         p="10px"
