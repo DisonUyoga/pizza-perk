@@ -1,12 +1,11 @@
-import { Spinner } from "@chakra-ui/react";
-import React from "react";
+import { Center, CircularProgress, Spinner } from "@chakra-ui/react";
+import { Container } from "postcss";
 
 const Loading = () => {
   return (
-    <div>
-      <Spinner />
-    </div>
+    <Center flex={1} minHeight="100vh" bg={""}>
+      <CircularProgress mt={"-70px"} isIndeterminate color="#FF9C01" />
+    </Center>
   );
 };
-
 export default Loading;
