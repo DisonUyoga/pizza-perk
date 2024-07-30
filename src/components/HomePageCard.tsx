@@ -66,7 +66,10 @@ const HomePageCard = ({ product }: ProoductCardProps) => {
         <h1 className={s.card_title}>{product.name}</h1>
         <p className={s.card_desc}>{product.description}</p>
         <span className={s.card_price}>{priceTag(product.price)}</span>
-        <Button variant="slim" onClick={() => addProductToCart(product)}>
+        <Button
+          variant="slim"
+          onClick={() => router.push(`/product/${product.id}`)}
+        >
           Add to Cart
         </Button>
       </div>
