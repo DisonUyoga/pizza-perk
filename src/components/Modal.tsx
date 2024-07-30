@@ -286,7 +286,7 @@ export default function ModalComponent({ product }: ModalProps) {
             justifyContent={"center"}
             alignContent={"center"}
             p={2}
-            minWidth={"30vw"}
+            minWidth={["30vw", "100px"]}
             cursor={"pointer"}
             bg={"#088d25"}
             _hover={{ opacity: 0.7 }}
