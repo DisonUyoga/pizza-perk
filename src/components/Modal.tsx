@@ -238,8 +238,9 @@ export default function ModalComponent({ product }: ModalProps) {
             justify={"space-between"}
           >
             {determineIfItemIsPizza &&
-              sizes.map((s) => (
+              sizes.map((s, index) => (
                 <SelectSize
+                  key={index}
                   sizes={s}
                   selected={selected}
                   handleSelected={handleSelected}
@@ -273,12 +274,6 @@ export default function ModalComponent({ product }: ModalProps) {
               router.back();
               onClose();
             }}
-            whileHover={{
-              scale: 1.1,
-              backgroundColor: "#319795",
-              boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.3)",
-            }}
-            transition={{ type: "spring", stiffness: 300 }}
           >
             Back
           </MotionButton>
@@ -293,6 +288,12 @@ export default function ModalComponent({ product }: ModalProps) {
             _active={{ opacity: 0.5 }}
             borderRadius={5}
             onClick={() => addProductToCart(product)}
+            whileHover={{
+              scale: 1.1,
+              backgroundColor: "#319795",
+              boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.3)",
+            }}
+            transition={{ type: "spring", stiffness: 300 }}
           >
             <Text fontSize={["xs", "md"]} textAlign={"center"} color={"#fff"}>
               Add to Cart
