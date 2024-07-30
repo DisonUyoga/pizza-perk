@@ -231,14 +231,14 @@ export default function ModalComponent({ product }: ModalProps) {
           >
             The offer only applies to Extra Large
           </Text>
-          <Flex
-            flex={1}
-            mt={4}
-            alignContent={"center"}
-            justify={"space-between"}
-          >
-            {determineIfItemIsPizza &&
-              sizes.map((s, index) => (
+          {determineIfItemIsPizza && (
+            <Flex
+              flex={1}
+              mt={4}
+              alignContent={"center"}
+              justify={"space-between"}
+            >
+              {sizes.map((s, index) => (
                 <SelectSize
                   key={index}
                   sizes={s}
@@ -247,7 +247,8 @@ export default function ModalComponent({ product }: ModalProps) {
                   product={product}
                 />
               ))}
-          </Flex>
+            </Flex>
+          )}
 
           {product.description && (
             <Text
