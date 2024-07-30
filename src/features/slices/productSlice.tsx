@@ -1,3 +1,4 @@
+"use client";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Tables } from "@/database.types";
 

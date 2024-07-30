@@ -39,7 +39,7 @@ const CategoryPage = async ({ params: { category } }: CategoryPageProps) => {
           flex={1}
           justifyItems="center"
           alignItems="center"
-          className="h-screen"
+          minHeight="100vh"
         >
           <BackButton />
 

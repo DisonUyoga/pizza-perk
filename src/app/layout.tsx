@@ -11,6 +11,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
+import QueryProvider from "@/lib/QueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default async function RootLayout(props: {
     <html lang="en">
       <body className={inter.className}>
         <ClerkProvider>
+          <QueryProvider>
           <ChakraProvider>
             <ReduxProvider>
               <AosProvider>
@@ -55,6 +57,7 @@ export default async function RootLayout(props: {
               </AosProvider>
             </ReduxProvider>
           </ChakraProvider>
+          </QueryProvider>
         </ClerkProvider>
       </body>
     </html>

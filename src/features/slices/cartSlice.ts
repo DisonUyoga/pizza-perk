@@ -1,3 +1,4 @@
+"use client";
 import { Tables } from "@/database.types";
 import { PizzaSize } from "@/type";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
@@ -9,7 +10,7 @@ export interface CartItems {
   price: number;
   quantity: number;
   totalPrice: number;
-  size: PizzaSize;
+  size: PizzaSize | null;
 }
 
 export interface CartProps {
@@ -98,9 +99,13 @@ const cartSlice = createSlice({
     },
     selectSize(
       state: CartProps,
-      action: PayloadAction<{ size: PizzaSize; product: Tables<"products"> }>
+      action: PayloadAction<{
+        size: PizzaSize | null;
+        product: Tables<"products">;
+      }>
     ) {
       const { size, product } = action.payload;
+
       state.sizes = size;
       // check if the product exist
       const existingItem = state.cartItems.find(

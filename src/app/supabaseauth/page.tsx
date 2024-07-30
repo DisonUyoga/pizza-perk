@@ -13,6 +13,7 @@ import {
   setUser,
 } from "@/features/slices/AuthSlice";
 import { useEffect } from "react";
+import { Box } from "@chakra-ui/react";
 
 const SupabaseAuth = () => {
   const { isLoaded, isSignedIn, user } = useUser();
@@ -39,7 +40,7 @@ const SupabaseAuth = () => {
     toast.error("Your not sign in");
     return router.push("/sign-in");
   }
-  console.log(user.emailAddresses[0].emailAddress, isLoaded);
+
   async function googleSignIn(email: string, name: string) {
     dispatch(processingAuth({ authLoading: true }));
 
@@ -68,7 +69,6 @@ const SupabaseAuth = () => {
       });
     if (!supabaseErrorLogin?.message) {
       const { data, error } = await supabase.auth.getSession();
-      console.log(data);
 
       if (!error) {
         toast.success("login successfull");
@@ -100,9 +100,9 @@ const SupabaseAuth = () => {
     }
   }
   return (
-    <div>
+    <Box minHeight="100vh">
       <p>Welcome, {user.firstName}!</p>
-    </div>
+    </Box>
   );
 };
 

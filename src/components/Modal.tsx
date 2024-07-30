@@ -19,7 +19,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Tables } from "@/database.types";
-import { pizzas } from "@/data";
+import { pizzas, sizes } from "@/data";
 import ProductImage from "./ProductImage";
 import NextLink from "next/link";
 import Link from "next/link";
@@ -37,11 +37,14 @@ import {
   updateCartTotalAfterSizeChange,
 } from "@/features/slices/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hook";
+import SelectSize from "./SelectSize";
+import { motion } from "framer-motion";
 
 interface ModalProps {
   product: Tables<"products">;
 }
-export default async function ModalComponent({ product }: ModalProps) {
+
+export default function ModalComponent({ product }: ModalProps) {
   const [loading, setLoading] = useState(false);
   const [selectionLoader, setSelectionLoader] = useState(false);
 
@@ -58,7 +61,11 @@ export default async function ModalComponent({ product }: ModalProps) {
   const [priceSize, setPriceSize] = useState<number | null>(null);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const determineIfItemIsPizza = !!(
+    product?.size_large ||
+    product?.size_medium ||
+    product?.size_small
+  );
   useEffect(() => {
     OpenModal();
   }, []);
@@ -70,8 +77,21 @@ export default async function ModalComponent({ product }: ModalProps) {
   function onDismiss() {
     router.back();
   }
+
   const handleSelected = (size: PizzaSize) => {
+    toast.success(
+      `You have picked ${
+        size === "S"
+          ? "small"
+          : size === "M"
+          ? "medium"
+          : size === "L"
+          ? "large"
+          : "extra large"
+      }`
+    );
     setSelectionLoader(true);
+
     try {
       if (!product) return;
       dispatch(selectSize({ size, product }));
@@ -138,7 +158,7 @@ export default async function ModalComponent({ product }: ModalProps) {
     if (cartItems && cartProduct) {
       changeCartTotalWhenSizeIsChanged(cartItems);
       toast.success("item updated");
-      router.back();
+      // router.back();
     }
   }
   function addProductToCart(product: Tables<"products">) {
@@ -155,6 +175,9 @@ export default async function ModalComponent({ product }: ModalProps) {
       setLoading(false);
     }
   }
+  const MotionText = motion(Text);
+  const MotionButton = motion(Button);
+  const MotionBox = motion(Box);
   return createPortal(
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -165,7 +188,14 @@ export default async function ModalComponent({ product }: ModalProps) {
           {product && (
             <Center>
               {pizzas[0].img && product.image && (
-                <Box position={"relative"} width={["100vw", "50vw"]} h={"50vh"}>
+                <Box
+                  position={"relative"}
+                  width={["100vw", "50vw"]}
+                  h={"50vh"}
+                  data-aos="fade-down"
+                  data-aos-easing="linear"
+                  data-aos-duration="1500"
+                >
                   <ProductImage fallback={pizzas[0].img} path={product.image} />
                 </Box>
               )}
@@ -174,21 +204,67 @@ export default async function ModalComponent({ product }: ModalProps) {
           <Flex mt={4} alignContent={"center"} justify={"space-between"}>
             <PriceComponent product={product} />
             {product.discount && product.discount > product.price && (
-              <Text color={"#FF9C01"}>
+              <MotionText
+                color={"#FF9C01"}
+                animate={{
+                  scale: [1, 1.5, 1],
+                  opacity: [1, 0.5, 1],
+                }}
+                transition={{
+                  duration: 2,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                  repeatType: "loop",
+                }}
+              >
                 -{discountCalculator(product.price, product.discount)}
-              </Text>
+              </MotionText>
             )}
-            <AddToCartBtn product={product}>
-              <AddIcon boxSize={[3, 4]} color={"#000"} />
-            </AddToCartBtn>
           </Flex>
+          <Text
+            fontSize={"10px"}
+            fontWeight={600}
+            mt={2}
+            color={"#050152"}
+            data-aos="zoom-in"
+            data-aos-duration="1500"
+          >
+            The offer only applies to Extra Large
+          </Text>
+          <Flex
+            flex={1}
+            mt={4}
+            alignContent={"center"}
+            justify={"space-between"}
+          >
+            {determineIfItemIsPizza &&
+              sizes.map((s) => (
+                <SelectSize
+                  sizes={s}
+                  selected={selected}
+                  handleSelected={handleSelected}
+                  product={product}
+                />
+              ))}
+          </Flex>
+
           {product.description && (
-            <Text fontSize={["xs", "md"]}>{product.description}</Text>
+            <Text
+              mt={10}
+              fontSize={["xs", "md"]}
+              data-aos="zoom-in"
+              data-aos-duration="1500"
+            >
+              {product.description}
+            </Text>
           )}
         </ModalBody>
 
         <ModalFooter>
-          <Button
+          <MotionButton
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 300 }}
             size={["sm", "md"]}
             fontSize={["xs", "md"]}
             colorScheme="blue"
@@ -197,10 +273,31 @@ export default async function ModalComponent({ product }: ModalProps) {
               router.back();
               onClose();
             }}
+            whileHover={{
+              scale: 1.1,
+              backgroundColor: "#319795",
+              boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.3)",
+            }}
+            transition={{ type: "spring", stiffness: 300 }}
           >
             Back
-          </Button>
-        
+          </MotionButton>
+          <MotionBox
+            justifyContent={"center"}
+            alignContent={"center"}
+            p={2}
+            minWidth={"30vw"}
+            cursor={"pointer"}
+            bg={"#088d25"}
+            _hover={{ opacity: 0.7 }}
+            _active={{ opacity: 0.5 }}
+            borderRadius={5}
+            onClick={() => addProductToCart(product)}
+          >
+            <Text fontSize={["xs", "md"]} textAlign={"center"} color={"#fff"}>
+              Add to Cart
+            </Text>
+          </MotionBox>
         </ModalFooter>
       </ModalContent>
     </Modal>,

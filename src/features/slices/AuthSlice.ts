@@ -1,3 +1,4 @@
+"use client";
 import { Tables } from "@/database.types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Session, User } from "@supabase/supabase-js";
@@ -42,7 +43,6 @@ const AuthSlice = createSlice({
   reducers: {
     sessionToken(state: SessionProps, action: PayloadAction<SessionProps>) {
       const { session } = action.payload;
-      
 
       state.session = session;
     },
