@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { isNewProduct } from "@/lib/isNewProduct";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 interface ProoductCardProps {
   product: Tables<"products">;
@@ -42,38 +43,40 @@ const HomePageCard = ({ product }: ProoductCardProps) => {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.05 }} // Scale up slightly on hover
-      transition={{ duration: 0.05 }}
-      className={s.card}
-      data-aos="fade-up"
-      data-aos-anchor-placement="center-bottom"
-      data-aos-duration="1500"
-    >
-      {/* IMAGE CONTAINER */}
-      {product.image && (
-        <div className={s.img_container}>
-          <ProductImage
-            fallback={featuredProducts[0].img as string}
-            path={product.image as string}
-          />
+    <Link href={`/product/${product.id}`}>
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        whileHover={{ scale: 1.05 }} // Scale up slightly on hover
+        transition={{ duration: 0.05 }}
+        className={s.card}
+        data-aos="fade-up"
+        data-aos-anchor-placement="center-bottom"
+        data-aos-duration="1500"
+      >
+        {/* IMAGE CONTAINER */}
+        {product.image && (
+          <div className={s.img_container}>
+            <ProductImage
+              fallback={featuredProducts[0].img as string}
+              path={product.image as string}
+            />
+          </div>
+        )}
+        {/* TEXT CONTAINER */}
+        <div className={s.card_body}>
+          <h1 className={s.card_title}>{product.name}</h1>
+          <p className={s.card_desc}>{product.description}</p>
+          <span className={s.card_price}>{priceTag(product.price)}</span>
+          <Button
+            variant="slim"
+            onClick={() => router.push(`/product/${product.id}`)}
+          >
+            Add to Cart
+          </Button>
         </div>
-      )}
-      {/* TEXT CONTAINER */}
-      <div className={s.card_body}>
-        <h1 className={s.card_title}>{product.name}</h1>
-        <p className={s.card_desc}>{product.description}</p>
-        <span className={s.card_price}>{priceTag(product.price)}</span>
-        <Button
-          variant="slim"
-          onClick={() => router.push(`/product/${product.id}`)}
-        >
-          Add to Cart
-        </Button>
-      </div>
-    </motion.div>
+      </motion.div>
+    </Link>
   );
 };
 
