@@ -40,6 +40,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hook";
 import SelectSize from "./SelectSize";
 import { motion } from "framer-motion";
 import { setProduct } from "@/features/slices/productSlice";
+import PriceCard from "./PriceCard";
 
 interface ModalProps {
   product: Tables<"products">;
@@ -201,26 +202,7 @@ export default function ModalComponent({ product }: ModalProps) {
               )}
             </Center>
           )}
-          <Flex mt={4} alignContent={"center"} justify={"space-between"}>
-            <PriceComponent product={product} />
-            {product.discount && product.discount > product.price && (
-              <MotionText
-                color={"#FF9C01"}
-                animate={{
-                  scale: [1, 1.5, 1],
-                  opacity: [1, 0.5, 1],
-                }}
-                transition={{
-                  duration: 2,
-                  ease: "easeInOut",
-                  repeat: Infinity,
-                  repeatType: "loop",
-                }}
-              >
-                -{discountCalculator(product.price, product.discount)}
-              </MotionText>
-            )}
-          </Flex>
+          <PriceCard product={product} />
           <Text
             fontSize={"10px"}
             fontWeight={600}

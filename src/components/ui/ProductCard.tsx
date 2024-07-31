@@ -26,6 +26,7 @@ import { addToCart } from "@/features/slices/cartSlice";
 import toast from "react-hot-toast";
 import NextLink from "next/link";
 import { motion } from "framer-motion";
+import PriceCard from "../PriceCard";
 interface ProductCardProps {
   product: Tables<"products">;
 }
@@ -77,6 +78,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
                     New
                   </Badge>
                 )}
+                <Box position={"absolute"} bottom={0} w={"90%"}>
+                  <PriceCard product={product} />
+                </Box>
               </Box>
             )}
           </CardBody>

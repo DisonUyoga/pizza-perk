@@ -22,6 +22,7 @@ import {
 } from "@/features/slices/cartSlice";
 import { setProduct } from "@/features/slices/productSlice";
 import { faTruckField } from "@fortawesome/free-solid-svg-icons";
+import PriceCard from "./PriceCard";
 interface ProductDetailProps {
   product: Tables<"products">;
 }
@@ -175,26 +176,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
             <Heading as="h2" size="xl" mb={4} color={"#ffff"}>
               {product.name}
             </Heading>
-            <Flex mt={4} alignContent={"center"} justify={"space-between"}>
-              <PriceComponent product={product} bgStyle="#fff" />
-              {product.discount && product.discount > product.price && (
-                <MotionText
-                  color={"#FF9C01"}
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [1, 0.5, 1],
-                  }}
-                  transition={{
-                    duration: 2,
-                    ease: "easeInOut",
-                    repeat: Infinity,
-                    repeatType: "loop",
-                  }}
-                >
-                  -{discountCalculator(product.price, product.discount)}
-                </MotionText>
-              )}
-            </Flex>
+            <PriceCard product={product} bgStyle="#fff" />
             <Text
               fontSize={"10px"}
               fontWeight={600}
