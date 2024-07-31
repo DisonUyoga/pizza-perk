@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import Loading from "./loading";
+import Loading from "../../@modal/(.)product/[id]/loading";
 import ProductDetails from "@/components/ProductDetail";
 
 interface ProductProps {

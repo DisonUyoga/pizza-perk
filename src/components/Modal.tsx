@@ -89,9 +89,7 @@ export default function ModalComponent({ product }: ModalProps) {
     onOpen();
   }
 
-  function onDismiss() {
-    router.back();
-  }
+
 
   const handleSelected = (size: PizzaSize) => {
     toast.success(

@@ -2,7 +2,7 @@ import ModalComponent from "@/components/Modal";
 import { createClient } from "@/lib/supabase";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import Loading from "./loading";
+import Loading from "../../../product/[id]/loading";
 
 interface ProductProps {
   params: {

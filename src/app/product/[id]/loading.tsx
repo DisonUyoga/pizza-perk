@@ -1,5 +1,5 @@
+"use client";
 import { Box, Flex, SimpleGrid, Skeleton } from "@chakra-ui/react";
-import React from "react";
 
 const Loading = () => {
   return (
@@ -16,12 +16,11 @@ const Loading = () => {
         <Flex direction={"column"} p={2} gap={[2, 4]}>
           <Skeleton height="30px" />
           <Skeleton height="20px" w={"50vw"} />
-          <Skeleton height="10px" w={"40vw"} />
-          <Skeleton height="20px" w={"60vw"} />
+          <Skeleton height="10px" w={"30vw"} />
+          <Skeleton height="20px" w={"20vw"} />
         </Flex>
       </SimpleGrid>
     </Box>
   );
 };
-
 export default Loading;
