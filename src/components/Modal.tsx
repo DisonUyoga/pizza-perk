@@ -63,7 +63,6 @@ export default function ModalComponent({ product }: ModalProps) {
   const [cartProduct, setCartProduct] = useState<CartItems | undefined>();
   const [openZoom, setOpenZoom] = useState(false);
   const [priceSize, setPriceSize] = useState<number | null>(null);
-  const [itemSize, setItemSize] = useState<PizzaSize | null>(null);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const determineIfItemIsPizza = !!(
@@ -84,6 +83,7 @@ export default function ModalComponent({ product }: ModalProps) {
     }
   }, [cartItems]);
   useEffect(() => {
+    handleSelected(selected as PizzaSize);
     if (product) {
       dispatch(setProduct({ product }));
     }
@@ -93,7 +93,7 @@ export default function ModalComponent({ product }: ModalProps) {
     onOpen();
   }
 
-  const handleSelected = (size?: PizzaSize | undefined | null) => {
+  const handleSelected = (size?: PizzaSize) => {
     size != null
       ? toast.success(
           `You have selected ${
@@ -123,7 +123,6 @@ export default function ModalComponent({ product }: ModalProps) {
       updateSize();
       if (!size) return;
       togglePriceDependingOnTheSize(product, size);
-      setItemSize(size);
     } catch (error) {
     } finally {
       setSelectionLoader(false);
@@ -188,7 +187,7 @@ export default function ModalComponent({ product }: ModalProps) {
   }
   function addProductToCart(product: Tables<"products">) {
     if (!product) return;
-    handleSelected(itemSize);
+    handleSelected();
     try {
       setLoading(true);
       dispatch(addToCart({ product, size: selected }));
