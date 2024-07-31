@@ -60,7 +60,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
   }, [product]);
   const handleSelected = (size: PizzaSize) => {
     if (!size) return;
-    size != "XL" ? toast.success(`You have selected ${size}`) : null;
+    toast.success(`You have selected ${size}`);
     setSelectionLoader(true);
 
     try {
