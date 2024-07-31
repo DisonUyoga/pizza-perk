@@ -199,7 +199,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
               fontSize={"10px"}
               fontWeight={600}
               mt={2}
-              color={"#fff"}
+              color={"#FF9C01"}
               data-aos="zoom-in"
               data-aos-duration="1500"
             >
@@ -226,7 +226,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
               </Flex>
             )}
             {product.description && (
-              <Text fontSize="lg" mb={4} color={"#fff"}>
+              <Text fontSize="lg" mb={4} color={"#c5bfbf"}>
                 {product.description}
               </Text>
             )}
