@@ -40,7 +40,7 @@ const ProductDetailSkeleton = () => {
               py={"20px"}
               gap={4}
             >
-              <Skeleton height="400px" />
+              <Skeleton height="300px" />
               <Flex direction={"column"} p={2} gap={[2, 4]}>
                 <Skeleton height="30px" />
                 <Skeleton height="20px" w={"50vw"} />
