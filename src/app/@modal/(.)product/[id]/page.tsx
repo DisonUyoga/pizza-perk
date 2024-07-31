@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import Loading from "../../../product/[id]/loading";
+import { Stack } from "@chakra-ui/react";
 
 interface ProductProps {
   params: {
@@ -20,7 +21,9 @@ const ProductDetail = async ({ params: { id } }: ProductProps) => {
 
   return (
     <Suspense fallback={<Loading />}>
-      <ModalComponent product={product} />
+      <Stack minHeight="100vh">
+        <ModalComponent product={product} />
+      </Stack>
     </Suspense>
   );
 };

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import Loading from "../../@modal/(.)product/[id]/loading";
 import ProductDetails from "@/components/ProductDetail";
+import { Stack } from "@chakra-ui/react";
 
 interface ProductProps {
   params: {
@@ -20,7 +21,9 @@ const ProductDetail = async ({ params: { id } }: ProductProps) => {
 
   return (
     <Suspense fallback={<Loading />}>
-      {product && <ProductDetails product={product} />}
+      <Stack minHeight="100vh">
+        {product && <ProductDetails product={product} />}
+      </Stack>
     </Suspense>
   );
 };
