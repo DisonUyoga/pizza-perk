@@ -57,21 +57,6 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
     }
   }, [product]);
   const handleSelected = (size: PizzaSize) => {
-    toast.success(
-      ` ${
-        size === "S"
-          ? "You have picked small"
-          : size === "M"
-          ? "You have picked medium"
-          : size === "L"
-          ? " You have picked large"
-          : size === "XL"
-          ? "You have picked extra large"
-          : product.discount
-          ? "pick XL and get amaizing offer "
-          : "Buy items worth KSH.4000 and get 5% discount"
-      }`
-    );
     setSelectionLoader(true);
 
     try {
