@@ -31,7 +31,7 @@ const ProductDetailSkeleton = () => {
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          <Spinner />
+          <Skeleton height="20px" w={"20vw"} />
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
