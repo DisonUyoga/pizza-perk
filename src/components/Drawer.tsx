@@ -14,8 +14,6 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import CartCard from "./ui/CartCard";
-import { testRedux } from "@/features/slices/cartSlice";
-import Test from "./Test";
 interface DrawerProps {
   isOpen: boolean;
   onClose: () => void;

@@ -278,28 +278,19 @@ export default function ModalComponent({ product }: ModalProps) {
           >
             Back
           </MotionButton>
-          <MotionBox
-            justifyContent={"center"}
-            alignContent={"center"}
-            p={2}
-            minWidth={["30vw", "100px"]}
-            cursor={"pointer"}
-            bg={"#088d25"}
-            _hover={{ opacity: 0.7 }}
-            _active={{ opacity: 0.5 }}
-            borderRadius={5}
-            onClick={() => addProductToCart(product)}
-            whileHover={{
-              scale: 1.1,
-              backgroundColor: "#319795",
-              boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.3)",
-            }}
+          <MotionButton
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             transition={{ type: "spring", stiffness: 300 }}
+            size={["sm", "md"]}
+            fontSize={["xs", "md"]}
+            colorScheme="blue"
+            bg={"#088d25"}
+            mr={3}
+            onClick={() => addProductToCart(product)}
           >
-            <Text fontSize={["xs", "md"]} textAlign={"center"} color={"#fff"}>
-              Add to Cart
-            </Text>
-          </MotionBox>
+            Add to Cart
+          </MotionButton>
         </ModalFooter>
       </ModalContent>
     </Modal>,

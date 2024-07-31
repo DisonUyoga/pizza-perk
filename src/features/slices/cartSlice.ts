@@ -61,12 +61,12 @@ const cartSlice = createSlice({
         0
       );
     },
-    deleteProduct(state: CartProps, action: PayloadAction<CartItems>) {
-      const product = action.payload;
+    deleteProduct(state: CartProps, action: PayloadAction<{ id: number }>) {
+      const { id } = action.payload;
       // check if the product is in the cart
-      const item = state.cartItems.find((p) => p.id === product.id);
+      const item = state.cartItems.find((p) => p.id === id);
       if (item) {
-        state.cartItems = state.cartItems.filter((i) => i.id !== product.id);
+        state.cartItems = state.cartItems.filter((i) => i.id !== id);
       }
     },
     increaseQuantity(state: CartProps, action: PayloadAction<CartItems>) {
