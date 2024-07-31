@@ -57,30 +57,36 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
     if (product) {
       dispatch(setProduct({ product }));
     }
-  }, [product]);
-  const handleSelected = (size: PizzaSize) => {
-    if (!size) return;
-    toast.success(
-      `You have selected ${
-        size == "S"
-          ? "small"
-          : size === "M"
-          ? "medium"
-          : size === "L"
-          ? "large"
-          : size === "XL"
-          ? "extra large"
-          : null
-      }`
-    );
+  }, [product, determineIfItemIsPizza]);
+  const handleSelected = (size?: PizzaSize) => {
+    size != null
+      ? toast.success(
+          `You have selected ${
+            size == "S"
+              ? "small"
+              : size === "M"
+              ? "medium"
+              : size === "L"
+              ? "large"
+              : size === "XL"
+              ? "extra large"
+              : null
+          }`
+        )
+      : null;
     setSelectionLoader(true);
 
     try {
       if (!product) return;
-      dispatch(selectSize({ size, product }));
+      dispatch(
+        selectSize({
+          size: determineIfItemIsPizza ? (size ? size : "XL") : null,
+          product,
+        })
+      );
 
       updateSize();
-
+      if (!size) return;
       togglePriceDependingOnTheSize(product, size);
     } catch (error) {
     } finally {
@@ -145,6 +151,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
   }
   function addProductToCart(product: Tables<"products">) {
     if (!product) return;
+    handleSelected();
     try {
       setLoading(true);
       dispatch(addToCart({ product, size: selected }));

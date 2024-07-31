@@ -49,6 +49,7 @@ interface ModalProps {
 export default function ModalComponent({ product }: ModalProps) {
   const [loading, setLoading] = useState(false);
   const [selectionLoader, setSelectionLoader] = useState(false);
+  const searcParams = useSearchParams();
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -86,35 +87,41 @@ export default function ModalComponent({ product }: ModalProps) {
     if (product) {
       dispatch(setProduct({ product }));
     }
-  }, [product]);
+  }, [product, determineIfItemIsPizza]);
 
   function OpenModal() {
     onOpen();
   }
 
-  const handleSelected = (size: PizzaSize) => {
-    if (!size) return;
-    toast.success(
-      `You have selected ${
-        size == "S"
-          ? "small"
-          : size === "M"
-          ? "medium"
-          : size === "L"
-          ? "large"
-          : size === "XL"
-          ? "extra large"
-          : null
-      }`
-    );
+  const handleSelected = (size?: PizzaSize) => {
+    size != null
+      ? toast.success(
+          `You have selected ${
+            size == "S"
+              ? "small"
+              : size === "M"
+              ? "medium"
+              : size === "L"
+              ? "large"
+              : size === "XL"
+              ? "extra large"
+              : null
+          }`
+        )
+      : null;
     setSelectionLoader(true);
 
     try {
       if (!product) return;
-      dispatch(selectSize({ size, product }));
+      dispatch(
+        selectSize({
+          size: determineIfItemIsPizza ? (size ? size : "XL") : null,
+          product,
+        })
+      );
 
       updateSize();
-
+      if (!size) return;
       togglePriceDependingOnTheSize(product, size);
     } catch (error) {
     } finally {
@@ -180,6 +187,7 @@ export default function ModalComponent({ product }: ModalProps) {
   }
   function addProductToCart(product: Tables<"products">) {
     if (!product) return;
+    handleSelected();
     try {
       setLoading(true);
       dispatch(addToCart({ product, size: selected }));

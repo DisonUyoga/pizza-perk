@@ -21,9 +21,7 @@ interface DrawerProps {
 export default function DrawerComponent({ isOpen, onClose }: DrawerProps) {
   const [placement, setPlacement] = useState<any>("right");
   const dispatch = useAppDispatch();
-  const { cartItems, totalAmount, test } = useAppSelector(
-    (state) => state.cart
-  );
+  const { cartItems, totalAmount } = useAppSelector((state) => state.cart);
 
   return (
     <>
@@ -35,7 +33,9 @@ export default function DrawerComponent({ isOpen, onClose }: DrawerProps) {
           <DrawerBody>
             <VStack spacing={5} p={0} m={0}>
               {cartItems.length > 0 ? (
-                cartItems.map((c) => <CartCard key={c.id} cartItem={c} />)
+                cartItems.map((c) => (
+                  <CartCard key={c.id} cartItem={c} onClose={onClose} />
+                ))
               ) : (
                 <Text>No Item in Cart</Text>
               )}

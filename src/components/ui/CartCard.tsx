@@ -18,8 +18,9 @@ import { useRouter } from "next/navigation";
 
 interface CartCardProps {
   cartItem: CartItems;
+  onClose: () => void;
 }
-const CartCard = ({ cartItem }: CartCardProps) => {
+const CartCard = ({ cartItem, onClose }: CartCardProps) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { totalQuantity } = useAppSelector((state) => state.cart);
@@ -64,6 +65,11 @@ const CartCard = ({ cartItem }: CartCardProps) => {
             <Text fontSize={"xs"} color={"#FF9C01"}>
               {name}
             </Text>
+            {cartItem.size && (
+              <Text fontSize={"xs"} color={"#FF9C01"}>
+                size:{cartItem.size}
+              </Text>
+            )}
             <Text fontSize={"xs"} color={"#fff"}>
               {priceTag(cartItem.price)}
             </Text>
@@ -93,9 +99,10 @@ const CartCard = ({ cartItem }: CartCardProps) => {
               fontSize={"xs"}
               color={"#FF9C01"}
               cursor={"pointer"}
-              onClick={() =>
-                router.push(`/product/${cartItem.id}?update=${true}`)
-              }
+              onClick={() => {
+                router.push(`/product/${cartItem.id}?update=${true}`);
+                onClose();
+              }}
             >
               update
             </Text>
