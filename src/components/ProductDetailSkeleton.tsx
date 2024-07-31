@@ -54,9 +54,7 @@ const ProductDetailSkeleton = () => {
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose}>
-            Close
-          </Button>
+          <Skeleton height="20px" w={"30px"} />
         </ModalFooter>
       </ModalContent>
     </Modal>
