@@ -21,6 +21,7 @@ import {
   updateCartTotalAfterSizeChange,
 } from "@/features/slices/cartSlice";
 import { setProduct } from "@/features/slices/productSlice";
+import { faTruckField } from "@fortawesome/free-solid-svg-icons";
 interface ProductDetailProps {
   product: Tables<"products">;
 }
@@ -219,6 +220,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
                     handleSelected={handleSelected}
                     product={product}
                     textStyle={"#fff"}
+                    bgStyle={true}
                   />
                 ))}
               </Flex>

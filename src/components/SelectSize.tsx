@@ -12,6 +12,7 @@ interface SelectSizeProps {
   selected: PizzaSize | null;
   product: Tables<"products">;
   textStyle?: string;
+  bgStyle?: boolean;
 }
 const SelectSize = ({
   sizes,
@@ -19,6 +20,7 @@ const SelectSize = ({
   selected,
   product,
   textStyle,
+  bgStyle,
 }: SelectSizeProps) => {
   const [price, setPrice] = useState<number | null>();
 
@@ -55,8 +57,8 @@ const SelectSize = ({
       justifyContent={"center"}
       alignContent={"center"}
       w={50}
-      _hover={{ bg: "#050152", color: "#FF8E01" }}
-      _active={{ bg: "#161622", color: "#FF8E01" }}
+      _hover={{ bg: bgStyle ? "#088d25" : "#050152", color: "#FF8E01" }}
+      _active={{ bg: bgStyle ? "#1c642c" : "#161622", color: "#FF8E01" }}
       cursor={"pointer"}
       aspectRatio={1}
       p={2}
