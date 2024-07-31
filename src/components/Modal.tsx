@@ -39,6 +39,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/lib/hook";
 import SelectSize from "./SelectSize";
 import { motion } from "framer-motion";
+import { setProduct } from "@/features/slices/productSlice";
 
 interface ModalProps {
   product: Tables<"products">;
@@ -69,6 +70,20 @@ export default function ModalComponent({ product }: ModalProps) {
   useEffect(() => {
     OpenModal();
   }, []);
+  useEffect(() => {
+    if (cartItems) {
+      checkIfItemIsAlreadyInTheCart(cartItems);
+    }
+    if (cartItems && cartProduct) {
+      changeCartTotalWhenSizeIsChanged(cartItems);
+    }
+  }, [cartItems]);
+  useEffect(() => {
+    handleSelected(selected as PizzaSize);
+    if (product) {
+      dispatch(setProduct({ product }));
+    }
+  }, [product]);
 
   function OpenModal() {
     onOpen();
@@ -80,14 +95,18 @@ export default function ModalComponent({ product }: ModalProps) {
 
   const handleSelected = (size: PizzaSize) => {
     toast.success(
-      `You have picked ${
+      ` ${
         size === "S"
-          ? "small"
+          ? "You have picked small"
           : size === "M"
-          ? "medium"
+          ? "You have picked medium"
           : size === "L"
-          ? "large"
-          : "extra large"
+          ? " You have picked large"
+          : size === "XL"
+          ? "You have picked extra large"
+          : product.discount
+          ? "pick XL and get amaizing offer "
+          : "Buy items worth KSH.4000 and get 5% discount"
       }`
     );
     setSelectionLoader(true);

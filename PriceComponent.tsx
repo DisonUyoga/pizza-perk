@@ -5,13 +5,14 @@ import { Flex, Text } from "@chakra-ui/react";
 import React from "react";
 interface PriceProps {
   product: Tables<"products">;
+  bgStyle?: string;
 }
-const PriceComponent = ({ product }: PriceProps) => {
+const PriceComponent = ({ product, bgStyle }: PriceProps) => {
   return (
     <Flex direction={"column"} gap={0}>
       {product.discount && (
         <Text
-          bg="#050152"
+          bg={bgStyle ? bgStyle : "#050152"}
           color={"#f80c0c"}
           textDecoration={"line-through"}
           borderTopRadius={5}
