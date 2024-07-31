@@ -14,12 +14,14 @@ import NextLink from "next/link";
 import CartImage from "../CartImage";
 import _ from "lodash";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface CartCardProps {
   cartItem: CartItems;
 }
 const CartCard = ({ cartItem }: CartCardProps) => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const { totalQuantity } = useAppSelector((state) => state.cart);
   const [quantity, setQuantity] = useState(cartItem.quantity);
 
@@ -86,7 +88,15 @@ const CartCard = ({ cartItem }: CartCardProps) => {
                 onClick={() => decrease()}
               />
             </HStack>
-            <Text textAlign={"center"} fontSize={"xs"} color={"#FF9C01"}>
+            <Text
+              textAlign={"center"}
+              fontSize={"xs"}
+              color={"#FF9C01"}
+              cursor={"pointer"}
+              onClick={() =>
+                router.push(`/product/${cartItem.id}?update=${true}`)
+              }
+            >
               update
             </Text>
           </Flex>

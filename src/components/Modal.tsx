@@ -1,7 +1,7 @@
 "use client";
 
 import { type ElementRef, ReactNode, useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createPortal } from "react-dom";
 import {
   Modal,
@@ -58,6 +58,7 @@ export default function ModalComponent({ product }: ModalProps) {
     sizes: selected,
   } = useAppSelector((state) => state.cart);
   const cartItems = useAppSelector((state) => state.cart.cartItems);
+  const searchParams = useSearchParams();
   const [cartProduct, setCartProduct] = useState<CartItems | undefined>();
   const [openZoom, setOpenZoom] = useState(false);
   const [priceSize, setPriceSize] = useState<number | null>(null);
@@ -68,6 +69,7 @@ export default function ModalComponent({ product }: ModalProps) {
     product?.size_medium ||
     product?.size_small
   );
+  const update = searchParams.get("update");
   useEffect(() => {
     OpenModal();
   }, []);
@@ -170,10 +172,10 @@ export default function ModalComponent({ product }: ModalProps) {
     setSelectionLoader(false);
   }
   function updateSize() {
-    if (cartItems && cartProduct) {
+    if (update && cartItems && cartProduct) {
       changeCartTotalWhenSizeIsChanged(cartItems);
       toast.success("item updated");
-      // router.back();
+      router.back();
     }
   }
   function addProductToCart(product: Tables<"products">) {
