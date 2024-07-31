@@ -7,7 +7,7 @@ import ProductDetailSkeleton from "@/components/ProductDetailSkeleton";
 const Loading = () => {
   const pathname = usePathname();
   if (pathname.startsWith("/product")) {
-    return <ProductDetailSkeleton />;
+    return null;
   }
 
   return (
