@@ -48,7 +48,6 @@ const ProductDetailSkeleton = () => {
                 <Skeleton height="30px" />
                 <Skeleton height="20px" w={"50vw"} />
                 <Skeleton height="10px" w={"30vw"} />
-                <Skeleton height="20px" w={"20vw"} />
               </Flex>
             </SimpleGrid>
           </Box>
