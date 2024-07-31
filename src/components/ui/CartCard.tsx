@@ -94,18 +94,20 @@ const CartCard = ({ cartItem, onClose }: CartCardProps) => {
                 onClick={() => decrease()}
               />
             </HStack>
-            <Text
-              textAlign={"center"}
-              fontSize={"xs"}
-              color={"#FF9C01"}
-              cursor={"pointer"}
-              onClick={() => {
-                router.push(`/product/${cartItem.id}?update=${true}`);
-                onClose();
-              }}
-            >
-              update
-            </Text>
+            {cartItem.size && (
+              <Text
+                textAlign={"center"}
+                fontSize={"xs"}
+                color={"#FF9C01"}
+                cursor={"pointer"}
+                onClick={() => {
+                  router.push(`/product/${cartItem.id}?update=${true}`);
+                  onClose();
+                }}
+              >
+                update
+              </Text>
+            )}
           </Flex>
         </Flex>
       )}
