@@ -34,6 +34,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   const [cartProduct, setCartProduct] = useState<CartItems | undefined>();
+  const [itemSize, setItemSize] = useState<PizzaSize | null>(null);
   const {
     totalAmount,
     totalQuantity,
@@ -53,12 +54,11 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
     }
   }, [cartItems]);
   useEffect(() => {
-    handleSelected(selected as PizzaSize);
     if (product) {
       dispatch(setProduct({ product }));
     }
   }, [product, determineIfItemIsPizza]);
-  const handleSelected = (size?: PizzaSize) => {
+  const handleSelected = (size?: PizzaSize | undefined | null) => {
     size != null
       ? toast.success(
           `You have selected ${
@@ -88,6 +88,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
       updateSize();
       if (!size) return;
       togglePriceDependingOnTheSize(product, size);
+      setItemSize(size);
     } catch (error) {
     } finally {
       setSelectionLoader(false);
@@ -151,7 +152,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
   }
   function addProductToCart(product: Tables<"products">) {
     if (!product) return;
-    handleSelected();
+    handleSelected(itemSize);
     try {
       setLoading(true);
       dispatch(addToCart({ product, size: selected }));

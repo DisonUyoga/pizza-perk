@@ -15,6 +15,7 @@ import CartImage from "../CartImage";
 import _ from "lodash";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { PizzaSize } from "@/type";
 
 interface CartCardProps {
   cartItem: CartItems;
@@ -25,6 +26,7 @@ const CartCard = ({ cartItem, onClose }: CartCardProps) => {
   const router = useRouter();
   const { totalQuantity } = useAppSelector((state) => state.cart);
   const [quantity, setQuantity] = useState(cartItem.quantity);
+  
 
   const name = _.truncate(cartItem.name as string, {
     separator: " ",
