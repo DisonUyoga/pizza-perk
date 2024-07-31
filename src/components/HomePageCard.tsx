@@ -43,16 +43,18 @@ const HomePageCard = ({ product }: ProoductCardProps) => {
   }
 
   return (
-    <Link href={`/product/${product.id}`}>
+    <Link
+      href={`/product/${product.id}`}
+      data-aos="fade-up"
+      data-aos-anchor-placement="center-bottom"
+      data-aos-duration="1500"
+    >
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ scale: 1.05 }} // Scale up slightly on hover
         transition={{ duration: 0.05 }}
         className={s.card}
-        data-aos="fade-up"
-        data-aos-anchor-placement="center-bottom"
-        data-aos-duration="1500"
       >
         {/* IMAGE CONTAINER */}
         {product.image && (
