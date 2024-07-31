@@ -1,11 +1,10 @@
-"use client";
 import {
   CartItems,
   decreaseQuantity,
   increaseQuantity,
 } from "@/features/slices/cartSlice";
 import { pizzas } from "@/data";
-import { useAppDispatch } from "@/lib/hook";
+import { useAppDispatch, useAppSelector } from "@/lib/hook";
 import { priceTag } from "@/lib/priceTage";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { Box, Flex, HStack, Text, Link } from "@chakra-ui/react";
@@ -13,17 +12,28 @@ import ProductImage from "@/components/ProductImage";
 import NextLink from "next/link";
 import CartImage from "../CartImage";
 import _ from "lodash";
+import { useEffect, useState } from "react";
 
 interface CartCardProps {
   cartItem: CartItems;
 }
 const CartCard = ({ cartItem }: CartCardProps) => {
   const dispatch = useAppDispatch();
+  const { totalQuantity } = useAppSelector((state) => state.cart);
+  const [quantity, setQuantity] = useState(cartItem.quantity);
 
   const name = _.truncate(cartItem.name as string, {
     separator: " ",
     length: 12,
   });
+  function increase() {
+    dispatch(increaseQuantity(cartItem));
+    setQuantity((prev) => prev + 1);
+  }
+  function decrease() {
+    dispatch(decreaseQuantity(cartItem));
+    setQuantity((prev) => prev - 1);
+  }
   return (
     <Flex
       alignContent={"center"}
@@ -62,18 +72,18 @@ const CartCard = ({ cartItem }: CartCardProps) => {
             w={[2, 4]}
             h={[2, 4]}
             color={"#ffff"}
-            onClick={() => dispatch(increaseQuantity(cartItem))}
+            onClick={() => increase()}
           />
-          <Text color={"#fff"}>{cartItem.quantity}</Text>
+          <Text color={"#fff"}>{quantity}</Text>
           <MinusIcon
             w={[2, 4]}
             h={[2, 4]}
             color={"#ffff"}
-            onClick={() => dispatch(decreaseQuantity(cartItem))}
+            onClick={() => decrease()}
           />
         </HStack>
         <Text fontSize={"xs"} color={"#FF9C01"}>
-          Update
+          update
         </Text>
       </Flex>
     </Flex>

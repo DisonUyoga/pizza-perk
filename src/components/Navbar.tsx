@@ -18,10 +18,11 @@ import NextLink from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import DrawerComponent from "./ui/Drawer";
+import DrawerComponent from "./Drawer";
 import { useAppSelector } from "@/lib/hook";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import Test from "./Test";
 const Links = [
   {
     display: "Home",
@@ -76,7 +77,7 @@ const Navbar = () => {
   const toggleClose = () => {
     onClose();
   };
-  
+
   return (
     <Box
       bg={useColorModeValue("#161622", "#161622")}
@@ -183,8 +184,8 @@ const Navbar = () => {
           </Stack>
         </MotionBox>
       ) : null}
+
       <DrawerComponent isOpen={openDrawer} onClose={onCloseDrawer} />
-      
     </Box>
   );
 };

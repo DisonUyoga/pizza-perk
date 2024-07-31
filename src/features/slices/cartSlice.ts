@@ -1,4 +1,3 @@
-"use client";
 import { Tables } from "@/database.types";
 import { PizzaSize } from "@/type";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
@@ -18,6 +17,7 @@ export interface CartProps {
   totalAmount: number;
   totalQuantity: number;
   sizes: PizzaSize | null;
+  test: number;
 }
 export interface CartProductProps {
   product: Tables<"products">;
@@ -28,6 +28,7 @@ const initialState = {
   totalAmount: 0,
   totalQuantity: 0,
   sizes: null,
+  test: 0,
 } as CartProps;
 
 const cartSlice = createSlice({
@@ -131,6 +132,9 @@ const cartSlice = createSlice({
         existingItem.price = price;
       }
     },
+    testRedux(state) {
+      state.test++;
+    },
   },
 });
 
@@ -142,6 +146,7 @@ export const {
   selectSize,
   clearCart,
   updateCartTotalAfterSizeChange,
+  testRedux,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

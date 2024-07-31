@@ -1,7 +1,7 @@
 import AosProvider from "@/components/AosProvider";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import ReduxProvider from "@/components/ReduxProvider";
+
 import { createClient } from "@/lib/supabase";
 import { ChakraProvider, Stack } from "@chakra-ui/react";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -12,6 +12,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import QueryProvider from "@/lib/QueryProvider";
+import { ReduxProvider } from "@/components/ReduxProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,37 +30,37 @@ export default async function RootLayout(props: {
   const { data: session, error: sessionError } =
     await createClient().auth.getSession();
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ClerkProvider>
-          <QueryProvider>
-          <ChakraProvider>
-            <ReduxProvider>
-              <AosProvider>
-                <Stack minHeight="100vh" bg={"#161622"}>
-                  <Navbar />
-                  <Stack>
-                    {props.children}
-                    {props.modal}
-                    <div id="modal-root" />
-                    <Footer />
+    <ReduxProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <ClerkProvider>
+            <QueryProvider>
+              <ChakraProvider>
+                <AosProvider>
+                  <Stack minHeight="100vh" bg={"#161622"}>
+                    <Navbar />
+                    <Stack>
+                      {props.children}
+                      {props.modal}
+                      <div id="modal-root" />
+                      <Footer />
+                    </Stack>
                   </Stack>
-                </Stack>
-                <Toaster
-                  position="top-center"
-                  toastOptions={{
-                    duration: 3000,
-                    success: {
-                      duration: 5000,
-                    },
-                  }}
-                />
-              </AosProvider>
-            </ReduxProvider>
-          </ChakraProvider>
-          </QueryProvider>
-        </ClerkProvider>
-      </body>
-    </html>
+                  <Toaster
+                    position="top-center"
+                    toastOptions={{
+                      duration: 3000,
+                      success: {
+                        duration: 5000,
+                      },
+                    }}
+                  />
+                </AosProvider>
+              </ChakraProvider>
+            </QueryProvider>
+          </ClerkProvider>
+        </body>
+      </html>
+    </ReduxProvider>
   );
 }

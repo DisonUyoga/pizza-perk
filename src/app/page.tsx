@@ -1,15 +1,15 @@
 import { createClient } from "@/lib/supabase";
-import { ErrorBoundary } from "react-error-boundary";
-
-import Featured from "@/components/Featured";
-import Offer from "@/components/Offer";
-import Slider from "@/components/Slider";
-import { Stack } from "@chakra-ui/react";
-import { Suspense } from "react";
-import Error from "./error";
-import Loading from "./loading";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { ErrorBoundary } from "react-error-boundary";
+import Loading from "./loading";
+import { Suspense } from "react";
+import { Stack } from "@chakra-ui/react";
+import Offer from "@/components/Offer";
+import Featured from "@/components/Featured";
+import Slider from "@/components/Slider";
+import Error from "./error";
+import Test from "@/components/Test";
 
 interface HomeProps {
   searchParams: {
@@ -22,8 +22,6 @@ export default async function Home() {
   const { data: session, error: sessionError } =
     await createClient().auth.getSession();
   // check whether clerk user is logged in
-
-
 
   if (!user) {
     await createClient().auth.signOut();

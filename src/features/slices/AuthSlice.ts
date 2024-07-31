@@ -1,4 +1,4 @@
-"use client";
+
 import { Tables } from "@/database.types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Session, User } from "@supabase/supabase-js";

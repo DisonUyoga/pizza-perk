@@ -1,6 +1,5 @@
 "use client";
-
-import { useAppSelector } from "@/lib/hook";
+import { useAppDispatch, useAppSelector } from "@/lib/hook";
 import {
   Button,
   Drawer,
@@ -14,14 +13,19 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import CartCard from "./CartCard";
+import CartCard from "./ui/CartCard";
+import { testRedux } from "@/features/slices/cartSlice";
+import Test from "./Test";
 interface DrawerProps {
   isOpen: boolean;
   onClose: () => void;
 }
 export default function DrawerComponent({ isOpen, onClose }: DrawerProps) {
   const [placement, setPlacement] = useState<any>("right");
-  const { cartItems, totalAmount } = useAppSelector((state) => state.cart);
+  const dispatch = useAppDispatch();
+  const { cartItems, totalAmount, test } = useAppSelector(
+    (state) => state.cart
+  );
 
   return (
     <>
