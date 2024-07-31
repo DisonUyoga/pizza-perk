@@ -91,6 +91,8 @@ export default function ModalComponent({ product }: ModalProps) {
   }
 
   const handleSelected = (size: PizzaSize) => {
+    if (!size) return;
+    toast.success(`You have selected ${size}`);
     setSelectionLoader(true);
 
     try {
