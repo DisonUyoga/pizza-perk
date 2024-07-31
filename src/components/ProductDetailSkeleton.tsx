@@ -12,6 +12,7 @@ import {
   ModalOverlay,
   SimpleGrid,
   Skeleton,
+  Spinner,
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
@@ -29,7 +30,9 @@ const ProductDetailSkeleton = () => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Modal Title</ModalHeader>
+        <ModalHeader>
+          <Spinner />
+        </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Box flex={1} minHeight="100vh">
