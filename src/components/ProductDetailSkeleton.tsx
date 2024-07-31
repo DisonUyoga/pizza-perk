@@ -46,8 +46,8 @@ const ProductDetailSkeleton = () => {
               <Skeleton height="300px" />
               <Flex direction={"column"} p={2} gap={[2, 4]}>
                 <Skeleton height="30px" />
-                <Skeleton height="20px" w={"50vw"} />
-                <Skeleton height="10px" w={"30vw"} />
+                <Skeleton height="20px" w={["50vw", "50px"]} />
+                <Skeleton height="10px" w={["30vw", "40px"]} />
               </Flex>
             </SimpleGrid>
           </Box>
