@@ -2,7 +2,7 @@
   @apply w-screen overflow-x-scroll;
 }
 .card {
-  @apply w-screen h-[60vh] flex flex-col items-center justify-around p-4 hover:opacity-80 transition-all duration-300 md:w-[50vw] xl:w-[33vw] xl:h-[90vh] border-t border-secondary-100 bg-primary;
+  @apply w-screen h-[40vh] flex flex-col items-center justify-around p-4 hover:opacity-80 transition-all duration-300 md:w-[50vw] xl:w-[33vw] xl:h-[50vh] border-t border-secondary-100 bg-primary  rounded;
 }
 .child_container {
   @apply w-max flex;

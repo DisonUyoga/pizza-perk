@@ -13,6 +13,8 @@ import { isNewProduct } from "@/lib/isNewProduct";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import PriceCard from "./PriceCard";
+import { Box } from "@chakra-ui/react";
 
 interface ProoductCardProps {
   product: Tables<"products">;
@@ -27,20 +29,6 @@ const HomePageCard = ({ product }: ProoductCardProps) => {
     product?.size_medium ||
     product?.size_small
   );
-
-  function addProductToCart(product: Tables<"products">) {
-    if (!product) return;
-
-    if (determineIfItemIsPizza) {
-      dispatch(addToCart({ product, size: "XL" }));
-    } else {
-      dispatch(addToCart({ product, size: null }));
-    }
-
-    toast.success("item added to cart");
-
-    // router.push(`/product/${product.id}`);
-  }
 
   return (
     <Link
@@ -66,12 +54,16 @@ const HomePageCard = ({ product }: ProoductCardProps) => {
           </div>
         )}
         {/* TEXT CONTAINER */}
-        <div className={s.card_body}>
-          <h1 className={s.card_title}>{product.name}</h1>
-          <p className={s.card_desc}>{product.description}</p>
-          <span className={s.card_price}>{priceTag(product.price)}</span>
-          <Button variant="slim">Add to Cart</Button>
-        </div>
+
+        <Box
+          position={"absolute"}
+          top={2}
+          w={"90%"}
+          alignContent={"start"}
+          justifyItems={"start"}
+        >
+          <PriceCard product={product} />
+        </Box>
       </motion.div>
     </Link>
   );
