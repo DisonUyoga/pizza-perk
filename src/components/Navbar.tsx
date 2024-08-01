@@ -159,16 +159,7 @@ const Navbar = () => {
                 <FontAwesomeIcon icon={faShoppingCart} color="#fff" />
               </Box>
             </Tooltip>
-            <Tooltip label="menu">
-              <Box
-                display={{ base: "none", md: "block" }}
-                onClick={() => {
-                  router.push("/menu");
-                }}
-              >
-                <FontAwesomeIcon icon={faUtensils} color="#FF9001" />
-              </Box>
-            </Tooltip>
+
             <Tooltip label="logout">
               <Box display={{ base: "none", md: "block" }} ml={2}>
                 <UserButton />
