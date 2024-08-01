@@ -35,7 +35,7 @@ const HeroSlider = ({ products }: CarouselProps) => {
       <Slider {...settings}>
         {products.map((src, index) => (
           <Link key={index} href={`/product/${src.id}`}>
-            <Box height="400px" position="relative">
+            <Box height={["300px", "400px"]} position="relative">
               <ProductImage
                 fallback={pizzas[0].img as string}
                 path={src.image as string}
