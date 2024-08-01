@@ -17,11 +17,18 @@ const ProductImage = ({ path, fallback, radius }: RemoteImageProps) => {
   return (
     <div>
       {image ? (
-        <Image src={image} alt="" fill className="object-cover rounded" />
+        <Image
+          src={image}
+          alt=""
+          fill
+          className="object-cover rounded"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
       ) : (
         <Image
           src={fallback}
           alt=""
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           fill
           className={`object-cover rounded`}
           style={{

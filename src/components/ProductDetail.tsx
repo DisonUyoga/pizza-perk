@@ -1,7 +1,15 @@
 "use client";
 import { pizzas, sizes } from "@/data";
 import { Tables } from "@/database.types";
-import { Box, Button, Flex, Heading, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Stack,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import ProductImage from "./ProductImage";
 import { priceTag } from "@/lib/priceTage";
@@ -18,37 +26,50 @@ import {
   addToCart,
   CartItems,
   selectSize,
+  setIsPizza,
+  setTogglePriceDependingOnSize,
   updateCartTotalAfterSizeChange,
 } from "@/features/slices/cartSlice";
 import { setProduct } from "@/features/slices/productSlice";
 import { faTruckField } from "@fortawesome/free-solid-svg-icons";
 import PriceCard from "./PriceCard";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 interface ProductDetailProps {
   product: Tables<"products">;
 }
 const ProductDetail = ({ product }: ProductDetailProps) => {
-  const MotionText = motion(Text);
-  const cartItems = useAppSelector((state) => state.cart.cartItems);
-  const [selectionLoader, setSelectionLoader] = useState(false);
-  const [priceSize, setPriceSize] = useState<number | null>(null);
-  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
+  const [selectionLoader, setSelectionLoader] = useState(false);
+  const searcParams = useSearchParams();
 
-  const [cartProduct, setCartProduct] = useState<CartItems | undefined>();
+  const dispatch = useAppDispatch();
   const router = useRouter();
-
   const {
     totalAmount,
     totalQuantity,
     sizes: selected,
   } = useAppSelector((state) => state.cart);
+
+  const cartItems = useAppSelector((state) => state.cart.cartItems);
+  const searchParams = useSearchParams();
+  const [cartProduct, setCartProduct] = useState<CartItems | undefined>();
+  const [openZoom, setOpenZoom] = useState(false);
+  const [priceSize, setPriceSize] = useState<number | null>(null);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const determineIfItemIsPizza = !!(
     product?.size_large ||
     product?.size_medium ||
     product?.size_small
   );
+  const update = searchParams.get("update");
   useEffect(() => {
+    OpenModal();
+  }, []);
+  useEffect(() => {
+    if (determineIfItemIsPizza) {
+      dispatch(setIsPizza({ isPizza: determineIfItemIsPizza }));
+    }
     if (cartItems) {
       checkIfItemIsAlreadyInTheCart(cartItems);
     }
@@ -57,12 +78,23 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
     }
   }, [cartItems]);
   useEffect(() => {
-   
+    dispatch(setTogglePriceDependingOnSize({ price: product.price }));
+    dispatch(
+      selectSize({
+        size: "XL",
+        product,
+      })
+    );
     if (product) {
       dispatch(setProduct({ product }));
     }
   }, [product, determineIfItemIsPizza]);
-  const handleSelected = (size?: PizzaSize | null) => {
+
+  function OpenModal() {
+    onOpen();
+  }
+
+  const handleSelected = (size: PizzaSize | null | undefined) => {
     size != null
       ? toast.success(
           `You have selected ${
@@ -82,49 +114,50 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
 
     try {
       if (!product) return;
+
       dispatch(
         selectSize({
-          size: determineIfItemIsPizza ? (size ? size : "XL") : null,
+          size: size as PizzaSize,
           product,
         })
       );
 
       updateSize();
       if (!size) return;
-      
+
       togglePriceDependingOnTheSize(product, size);
     } catch (error) {
     } finally {
       setSelectionLoader(false);
     }
   };
+  function checkIfItemIsAlreadyInTheCart(c: CartItems[]) {
+    const cartItem = cartItems.find((p) => p.id === product?.id) as CartItems;
+
+    if (!cartItem || !product) return;
+
+    setCartProduct(cartItem);
+  }
+
   function togglePriceDependingOnTheSize(
     product: Tables<"products">,
     selectedSize: PizzaSize
   ) {
     switch (selectedSize) {
       case "S":
-        setPriceSize(product.size_small);
+        dispatch(setTogglePriceDependingOnSize({ price: product.size_small }));
 
         break;
       case "M":
-        setPriceSize(product.size_medium);
+        dispatch(setTogglePriceDependingOnSize({ price: product.size_medium }));
 
         break;
       case "L":
-        setPriceSize(product.size_large);
-        setSelectionLoader(false);
+        dispatch(setTogglePriceDependingOnSize({ price: product.size_large }));
 
         break;
       default:
-        setPriceSize(product.price);
-    }
-  }
-  function updateSize() {
-    if (cartItems && cartProduct) {
-      changeCartTotalWhenSizeIsChanged(cartItems);
-      toast.success("item updated");
-      router.back();
+        dispatch(setTogglePriceDependingOnSize({ price: product.price }));
     }
   }
   function changeCartTotalWhenSizeIsChanged(c: CartItems[]) {
@@ -133,35 +166,39 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
 
     if (!item) return;
 
-    if (priceSize && item?.price) {
-      const newTotal =
-        totalAmount - item?.quantity * item.price + item.quantity * priceSize;
-
+    if (item?.price) {
       dispatch(
         updateCartTotalAfterSizeChange({
-          newTotal,
-          changedItem: product,
-          price: priceSize,
+          product: item,
+          currentPrice: item.price,
         })
       );
     }
     setSelectionLoader(false);
   }
-  function checkIfItemIsAlreadyInTheCart(c: CartItems[]) {
-    const cartItem = cartItems.find((p) => p.id === product?.id) as CartItems;
-
-    if (!cartItem || !product) return;
-
-    setCartProduct(cartItem);
+  function updateSize() {
+    if (update && cartItems && cartProduct) {
+      changeCartTotalWhenSizeIsChanged(cartItems);
+      toast.success("item updated");
+      router.back();
+    }
   }
   function addProductToCart(product: Tables<"products">) {
+    dispatch(setIsPizza({ isPizza: determineIfItemIsPizza }));
     if (!product) return;
-    handleSelected(selected);
+
     try {
       setLoading(true);
-      dispatch(addToCart({ product, size: selected }));
+      dispatch(
+        addToCart({
+          product,
+          size: selected,
+        })
+      );
       setLoading(false);
       toast.success("item added to cart");
+
+      router.back();
     } catch (error: any) {
     } finally {
       setLoading(false);

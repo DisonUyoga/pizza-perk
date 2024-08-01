@@ -1,16 +1,13 @@
 "use client";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import CountDown from "../CountDown";
+// import Image from "next/image";
+import { useEffect, useState } from "react";
 
-import s from "./Offer.module.css";
-import { Tables } from "@/type";
-import { calcDis } from "@/lib/calcDis";
 import ProductImage from "@/components/ProductImage";
-import Aos from "aos";
-import { Button } from "@chakra-ui/react";
+import { calcDis } from "@/lib/calcDis";
+import { Tables } from "@/type";
+import { Box, Grid, GridItem, Heading, Image, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import s from "./Offer.module.css";
 
 interface OfferProps {
   delivery: Tables<"delivery">[];
@@ -22,9 +19,9 @@ const Offer = ({ delivery, products }: OfferProps) => {
   const router = useRouter();
 
   useEffect(() => {
-    function checkProductWithHighestDiscount(p: Tables<"products">[]) {
-      if (!p) return;
-      const item = p.map((i) => {
+    function checkProductWithHighestDiscount(Text: Tables<"products">[]) {
+      if (!Text) return;
+      const item = Text.map((i) => {
         const percDisc = [];
         if (i.discount && i.discount > i.price) {
           const dis = calcDis(i.price, i.discount);
@@ -51,61 +48,82 @@ const Offer = ({ delivery, products }: OfferProps) => {
       (obj) => obj.percentage === maxPercentage
     );
     const productWithHighestPercentage = products.filter(
-      (p) => p.id === objectsWithMaxPercentage[0].id
+      (Text) => Text.id === objectsWithMaxPercentage[0].id
     );
     if (!productWithHighestPercentage) return;
     setProductOnOffer(productWithHighestPercentage[0]);
   }
 
   return (
-    <div className={s.container}>
-      {/* TEXT CONTAINER  */}
-      <div className={s.child_container}>
-        <h1
-          className={s.offer_title}
-          data-aos="zoom-out-up"
-          data-aos-duration="2000"
-        >
-          PizzaPerk
-        </h1>
-        <p
-          className={s.offer_hero_title}
-          data-aos="zoom-out-up"
-          data-aos-duration="2000"
-        >
-          &quot;Discover PizzaPerk: Your Crave-Worthy Shortcut to Delicious
-          Pizza Bliss!&quot;
-        </p>
-
-        {delivery[0]?.countdown && <CountDown date={delivery[0]?.countdown} />}
-
-        <Button
-          as={motion.button}
-          variant="solid"
-          bg="#FF9C01"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className={s.offer_title}
-          data-aos="zoom-out-up"
-          data-aos-duration="1500"
-          onClick={() => router.push(`/product/${prodctOnOffer?.id}`)}
-        >
-          Order Now
-        </Button>
-      </div>
-      {/* IMAGE CONTAINER  */}
-      <div
-        className={s.hero_img}
-        data-aos="fade-down"
-        data-aos-easing="linear"
-        data-aos-duration="1500"
-      >
-        <ProductImage
-          fallback="/offerProduct.png"
-          path={(prodctOnOffer?.image as string) || "/offerProduct.png"}
+    <Grid
+      templateColumns={{ base: "1fr", md: "1fr 1fr" }}
+      gap={0}
+      p={0}
+      m="0"
+      maxW="1400px"
+    >
+      <GridItem position={"relative"} w={"100%"}>
+        <Image
+          src="/offerBg1.jpg"
+          alt="Hero Image 1"
+          borderRadius="md"
+          aspectRatio={1}
+          objectFit="cover"
+          width="100%"
+          height={{ base: "300px", md: "400px" }}
+          className="opacity-20"
         />
-      </div>
-    </div>
+        <Box
+          flexDirection={"column"}
+          position="absolute"
+          w={"100%"}
+          top="50%"
+          left="50%"
+          transform="translate(-50%, -50%)"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          bg=""
+          p={4}
+          borderRadius="md"
+          gap={4}
+        >
+          <Heading
+            as={"h1"}
+            fontSize={["4xl", "6xl"]}
+            color={"#fff"}
+            data-aos="zoom-out-up"
+            data-aos-duration="2000"
+          >
+            PizzaPerk
+          </Heading>
+          <Text
+            color={"#f3eeee"}
+            textAlign={"center"}
+            data-aos="zoom-out-up"
+            data-aos-duration="2000"
+          >
+            &quot;Discover PizzaPerk: Your Crave-Worthy Shortcut to Delicious
+            Pizza Bliss!&quot;
+          </Text>
+        </Box>
+      </GridItem>
+      <GridItem width={"100%"}>
+        <Box
+          className={s.hero_img}
+          data-aos="fade-down"
+          data-aos-easing="linear"
+          data-aos-duration="1500"
+          // width={"100%"}
+          aspectRatio={[3 / 2, "auto"]}
+        >
+          <ProductImage
+            fallback="/offerProduct.png"
+            path={(prodctOnOffer?.image as string) || "/offerProduct.png"}
+          />
+        </Box>
+      </GridItem>
+    </Grid>
   );
 };
 

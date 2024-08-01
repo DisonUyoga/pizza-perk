@@ -10,13 +10,14 @@ import {
   useColorModeValue,
   Link,
   Button,
+  Tooltip,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import Image from "next/image";
 
 import NextLink from "next/link";
 import { UserButton } from "@clerk/nextjs";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { faShoppingCart, faUtensils } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DrawerComponent from "./Drawer";
 import { useAppSelector } from "@/lib/hook";
@@ -56,6 +57,7 @@ const NavLink = ({
     _hover={{
       textDecoration: "none",
       bg: useColorModeValue("gray.200", "gray.700"),
+      color: "#000",
     }}
     href={path}
     onClick={() => toggleClose()}
@@ -106,17 +108,21 @@ const Navbar = () => {
               />
             </Link>
           </Flex>
-          <Box display={{ base: "block", md: "none" }}>
-            <UserButton />
-          </Box>
-          <Box
-            display={{ base: "block", md: "none" }}
-            onClick={() => {
-              onOpenDrawer();
-            }}
-          >
-            <FontAwesomeIcon icon={faShoppingCart} color="#fff" />
-          </Box>
+          <Tooltip label="logout">
+            <Box display={{ base: "block", md: "none" }}>
+              <UserButton />
+            </Box>
+          </Tooltip>
+          <Tooltip label="Open Cart">
+            <Box
+              display={{ base: "block", md: "none" }}
+              onClick={() => {
+                onOpenDrawer();
+              }}
+            >
+              <FontAwesomeIcon icon={faShoppingCart} color="#fff" />
+            </Box>
+          </Tooltip>
           <HStack
             as={"nav"}
             spacing={4}
@@ -132,18 +138,31 @@ const Navbar = () => {
                 {link.display}
               </NavLink>
             ))}
-
-            <Box
-              display={{ base: "none", md: "block" }}
-              onClick={() => {
-                onOpenDrawer();
-              }}
-            >
-              <FontAwesomeIcon icon={faShoppingCart} color="#fff" />
-            </Box>
-            <Box display={{ base: "none", md: "block" }} ml={2}>
-              <UserButton />
-            </Box>
+            <Tooltip label="Open Cart">
+              <Box
+                display={{ base: "none", md: "block" }}
+                onClick={() => {
+                  onOpenDrawer();
+                }}
+              >
+                <FontAwesomeIcon icon={faShoppingCart} color="#fff" />
+              </Box>
+            </Tooltip>
+            <Tooltip label="menu">
+              <Box
+                display={{ base: "none", md: "block" }}
+                onClick={() => {
+                  router.push("/menu");
+                }}
+              >
+                <FontAwesomeIcon icon={faUtensils} color="#FF9001" />
+              </Box>
+            </Tooltip>
+            <Tooltip label="logout">
+              <Box display={{ base: "none", md: "block" }} ml={2}>
+                <UserButton />
+              </Box>
+            </Tooltip>
           </HStack>
         </HStack>
         <IconButton
