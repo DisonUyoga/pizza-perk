@@ -17,7 +17,8 @@ export interface CartProps {
   totalAmount: number;
   totalQuantity: number;
   sizes: PizzaSize | null;
-  test: number;
+  isPizza: boolean;
+  togglePriceWithSize: number | null;
 }
 export interface CartProductProps {
   product: Tables<"products">;
@@ -28,7 +29,8 @@ const initialState = {
   totalAmount: 0,
   totalQuantity: 0,
   sizes: null,
-  test: 0,
+  isPizza: false,
+  togglePriceWithSize: null,
 } as CartProps;
 
 const cartSlice = createSlice({
@@ -38,6 +40,7 @@ const cartSlice = createSlice({
     addToCart(state: CartProps, action: PayloadAction<CartProductProps>) {
       const { product, size } = action.payload;
       // check if product is in the cart
+
       const item: CartItems | undefined = state.cartItems.find(
         (p) => p.id === product.id
       );
@@ -48,10 +51,12 @@ const cartSlice = createSlice({
           id: product.id,
           image: product.image,
           name: product.name,
-          price: product.price,
+          price: state.togglePriceWithSize
+            ? state.togglePriceWithSize
+            : product.price,
           quantity: 1,
           totalPrice: product.price,
-          size: size as PizzaSize,
+          size: state.isPizza ? (state.sizes ? state.sizes : "XL") : null,
         });
       } else {
         item.quantity++;
@@ -132,8 +137,18 @@ const cartSlice = createSlice({
         existingItem.price = price;
       }
     },
-    testRedux(state) {
-      state.test++;
+    setIsPizza(state, action: PayloadAction<{ isPizza: boolean }>) {
+      const { isPizza } = action.payload;
+
+      state.isPizza = isPizza;
+    },
+    setTogglePriceDependingOnSize(
+      state,
+      action: PayloadAction<{ price: number | null }>
+    ) {
+      const { price } = action.payload;
+
+      state.togglePriceWithSize = price;
     },
   },
 });
@@ -146,7 +161,8 @@ export const {
   selectSize,
   clearCart,
   updateCartTotalAfterSizeChange,
-  testRedux,
+  setIsPizza,
+  setTogglePriceDependingOnSize,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

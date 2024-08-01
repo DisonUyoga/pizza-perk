@@ -107,7 +107,7 @@ const CartCard = ({ cartItem, onClose }: CartCardProps) => {
                   onClose();
                 }}
               >
-                update
+                update size
               </Text>
             )}
           </Flex>

@@ -45,7 +45,7 @@ const SelectSize = ({
     }
   }
   const MotionFlex = motion(Flex);
-  console.log(price);
+
   return (
     <MotionFlex
       whileHover={{ scale: 1.1 }}

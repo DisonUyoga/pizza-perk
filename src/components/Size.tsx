@@ -7,7 +7,7 @@ interface SelectSizeProps {
   selected: PizzaSize | null;
 }
 const Size = ({ sizes, handleSelected, selected }: SelectSizeProps) => {
-  console.log(sizes);
+ 
   return <div onClick={() => handleSelected(sizes)}>t</div>;
 };
 

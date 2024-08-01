@@ -23,6 +23,7 @@ import {
 import { setProduct } from "@/features/slices/productSlice";
 import { faTruckField } from "@fortawesome/free-solid-svg-icons";
 import PriceCard from "./PriceCard";
+import { useRouter } from "next/navigation";
 interface ProductDetailProps {
   product: Tables<"products">;
 }
@@ -33,7 +34,9 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
   const [priceSize, setPriceSize] = useState<number | null>(null);
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
+
   const [cartProduct, setCartProduct] = useState<CartItems | undefined>();
+  const router = useRouter();
 
   const {
     totalAmount,
@@ -54,12 +57,12 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
     }
   }, [cartItems]);
   useEffect(() => {
-    handleSelected(selected as PizzaSize);
+   
     if (product) {
       dispatch(setProduct({ product }));
     }
   }, [product, determineIfItemIsPizza]);
-  const handleSelected = (size?: PizzaSize) => {
+  const handleSelected = (size?: PizzaSize | null) => {
     size != null
       ? toast.success(
           `You have selected ${
@@ -88,6 +91,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
 
       updateSize();
       if (!size) return;
+      
       togglePriceDependingOnTheSize(product, size);
     } catch (error) {
     } finally {
@@ -120,7 +124,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
     if (cartItems && cartProduct) {
       changeCartTotalWhenSizeIsChanged(cartItems);
       toast.success("item updated");
-      // router.back();
+      router.back();
     }
   }
   function changeCartTotalWhenSizeIsChanged(c: CartItems[]) {
@@ -152,7 +156,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
   }
   function addProductToCart(product: Tables<"products">) {
     if (!product) return;
-    handleSelected();
+    handleSelected(selected);
     try {
       setLoading(true);
       dispatch(addToCart({ product, size: selected }));
@@ -163,6 +167,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
       setLoading(false);
     }
   }
+
   const MotionButton = motion(Button);
   return (
     <Box

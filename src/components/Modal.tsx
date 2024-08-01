@@ -34,6 +34,8 @@ import {
   addToCart,
   CartItems,
   selectSize,
+  setIsPizza,
+  setTogglePriceDependingOnSize,
   updateCartTotalAfterSizeChange,
 } from "@/features/slices/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hook";
@@ -58,6 +60,7 @@ export default function ModalComponent({ product }: ModalProps) {
     totalQuantity,
     sizes: selected,
   } = useAppSelector((state) => state.cart);
+
   const cartItems = useAppSelector((state) => state.cart.cartItems);
   const searchParams = useSearchParams();
   const [cartProduct, setCartProduct] = useState<CartItems | undefined>();
@@ -75,6 +78,9 @@ export default function ModalComponent({ product }: ModalProps) {
     OpenModal();
   }, []);
   useEffect(() => {
+    if (determineIfItemIsPizza) {
+      dispatch(setIsPizza({ isPizza: determineIfItemIsPizza }));
+    }
     if (cartItems) {
       checkIfItemIsAlreadyInTheCart(cartItems);
     }
@@ -83,7 +89,13 @@ export default function ModalComponent({ product }: ModalProps) {
     }
   }, [cartItems]);
   useEffect(() => {
-    handleSelected(selected as PizzaSize);
+    dispatch(setTogglePriceDependingOnSize({ price: product.price }));
+    dispatch(
+      selectSize({
+        size: "XL",
+        product,
+      })
+    );
     if (product) {
       dispatch(setProduct({ product }));
     }
@@ -93,7 +105,7 @@ export default function ModalComponent({ product }: ModalProps) {
     onOpen();
   }
 
-  const handleSelected = (size?: PizzaSize) => {
+  const handleSelected = (size: PizzaSize | null | undefined) => {
     size != null
       ? toast.success(
           `You have selected ${
@@ -113,15 +125,17 @@ export default function ModalComponent({ product }: ModalProps) {
 
     try {
       if (!product) return;
+
       dispatch(
         selectSize({
-          size: determineIfItemIsPizza ? (size ? size : "XL") : null,
+          size: size as PizzaSize,
           product,
         })
       );
 
       updateSize();
       if (!size) return;
+
       togglePriceDependingOnTheSize(product, size);
     } catch (error) {
     } finally {
@@ -140,22 +154,22 @@ export default function ModalComponent({ product }: ModalProps) {
     product: Tables<"products">,
     selectedSize: PizzaSize
   ) {
+    
     switch (selectedSize) {
       case "S":
-        setPriceSize(product.size_small);
+        dispatch(setTogglePriceDependingOnSize({ price: product.size_small }));
 
         break;
       case "M":
-        setPriceSize(product.size_medium);
+        dispatch(setTogglePriceDependingOnSize({ price: product.size_medium }));
 
         break;
       case "L":
-        setPriceSize(product.size_large);
-        setSelectionLoader(false);
+        dispatch(setTogglePriceDependingOnSize({ price: product.size_large }));
 
         break;
       default:
-        setPriceSize(product.price);
+        dispatch(setTogglePriceDependingOnSize({ price: product.price }));
     }
   }
   function changeCartTotalWhenSizeIsChanged(c: CartItems[]) {
@@ -186,11 +200,17 @@ export default function ModalComponent({ product }: ModalProps) {
     }
   }
   function addProductToCart(product: Tables<"products">) {
+    dispatch(setIsPizza({ isPizza: determineIfItemIsPizza }));
     if (!product) return;
-    handleSelected();
+
     try {
       setLoading(true);
-      dispatch(addToCart({ product, size: selected }));
+      dispatch(
+        addToCart({
+          product,
+          size: selected,
+        })
+      );
       setLoading(false);
       toast.success("item added to cart");
 
@@ -200,6 +220,7 @@ export default function ModalComponent({ product }: ModalProps) {
       setLoading(false);
     }
   }
+ 
   const MotionText = motion(Text);
   const MotionButton = motion(Button);
   const MotionBox = motion(Box);
