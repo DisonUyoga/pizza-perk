@@ -109,13 +109,10 @@ const Offer = ({ delivery, products }: OfferProps) => {
           </Text>
         </Box>
       </GridItem>
-      <GridItem width={"100%"}>
+      <GridItem width={"100%"} data-aos="zoom-in-up" data-aos-duration="2000">
         <Link href={`/product/${prodctOnOffer?.id}`}>
           <Box
             className={s.hero_img}
-            data-aos="fade-down"
-            data-aos-easing="linear"
-            data-aos-duration="1500"
             // width={"100%"}
             aspectRatio={[3 / 2, "auto"]}
           >

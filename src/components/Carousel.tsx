@@ -34,7 +34,12 @@ const HeroSlider = ({ products }: CarouselProps) => {
     <Box width="100%" height="500px" overflow="hidden">
       <Slider {...settings}>
         {products.map((src, index) => (
-          <Link key={index} href={`/product/${src.id}`}>
+          <Link
+            key={index}
+            href={`/product/${src.id}`}
+            data-aos="zoom-in-up"
+            data-aos-duration="2000"
+          >
             <Box height={["300px", "400px"]} position="relative">
               <ProductImage
                 fallback={pizzas[0].img as string}
