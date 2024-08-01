@@ -1,35 +1,7 @@
 "use client";
 
-import { type ElementRef, ReactNode, useEffect, useRef, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { createPortal } from "react-dom";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-  Button,
-  Center,
-  Box,
-  Flex,
-  Text,
-} from "@chakra-ui/react";
-import { Tables } from "@/database.types";
 import { pizzas, sizes } from "@/data";
-import ProductImage from "./ProductImage";
-import NextLink from "next/link";
-import Link from "next/link";
-import { priceTag } from "@/lib/priceTage";
-import { discountCalculator } from "@/lib/discountCalculator";
-import AddToCartBtn from "./AddToCartBtn";
-import { AddIcon } from "@chakra-ui/icons";
-import PriceComponent from "../../PriceComponent";
-import { PizzaSize } from "@/type";
-import toast from "react-hot-toast";
+import { Tables } from "@/database.types";
 import {
   addToCart,
   CartItems,
@@ -38,11 +10,32 @@ import {
   setTogglePriceDependingOnSize,
   updateCartTotalAfterSizeChange,
 } from "@/features/slices/cartSlice";
-import { useAppDispatch, useAppSelector } from "@/lib/hook";
-import SelectSize from "./SelectSize";
-import { motion } from "framer-motion";
 import { setProduct } from "@/features/slices/productSlice";
+import { useAppDispatch, useAppSelector } from "@/lib/hook";
+import { PizzaSize } from "@/type";
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import toast from "react-hot-toast";
 import PriceCard from "./PriceCard";
+import ProductImage from "./ProductImage";
+import SelectSize from "./SelectSize";
 
 interface ModalProps {
   product: Tables<"products">;
@@ -154,7 +147,6 @@ export default function ModalComponent({ product }: ModalProps) {
     product: Tables<"products">,
     selectedSize: PizzaSize
   ) {
-    
     switch (selectedSize) {
       case "S":
         dispatch(setTogglePriceDependingOnSize({ price: product.size_small }));
@@ -177,16 +169,12 @@ export default function ModalComponent({ product }: ModalProps) {
     const item = c.find((p) => p.id === product?.id);
 
     if (!item) return;
-
-    if (priceSize && item?.price) {
-      const newTotal =
-        totalAmount - item?.quantity * item.price + item.quantity * priceSize;
-
+   
+    if (item?.price) {
       dispatch(
         updateCartTotalAfterSizeChange({
-          newTotal,
-          changedItem: product,
-          price: priceSize,
+          product: item,
+          currentPrice: item.price,
         })
       );
     }
@@ -220,7 +208,7 @@ export default function ModalComponent({ product }: ModalProps) {
       setLoading(false);
     }
   }
- 
+
   const MotionText = motion(Text);
   const MotionButton = motion(Button);
   const MotionBox = motion(Box);

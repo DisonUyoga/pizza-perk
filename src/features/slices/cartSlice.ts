@@ -129,12 +129,14 @@ const cartSlice = createSlice({
     },
 
     updateCartTotalAfterSizeChange(state, action) {
-      const { newTotal, changedItem, price } = action.payload;
-      state.totalAmount = newTotal;
-
-      const existingItem = state.cartItems.find((i) => i.id === changedItem.id);
+      const { product, currentPrice } = action.payload;
+      const existingItem = state.cartItems.find((i) => i.id === product.id);
       if (existingItem) {
-        existingItem.price = price;
+        existingItem.price = state.togglePriceWithSize as number;
+        state.totalAmount =
+          state.totalAmount -
+          product.quantity *
+            (1 * currentPrice + 1 * state.togglePriceWithSize!);
       }
     },
     setIsPizza(state, action: PayloadAction<{ isPizza: boolean }>) {

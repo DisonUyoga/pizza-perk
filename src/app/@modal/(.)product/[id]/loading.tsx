@@ -13,15 +13,16 @@ import {
   ModalOverlay,
   SimpleGrid,
   Skeleton,
+  Stack,
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 
 const Loading = () => {
   return (
-    <>
+    <Stack minHeight="100vh">
       <ProductDetailSkeleton />
-    </>
+    </Stack>
   );
 };
 
