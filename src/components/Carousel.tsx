@@ -23,15 +23,8 @@ const HeroSlider = ({ products }: CarouselProps) => {
     arrows: false,
   };
 
-  const images = [
-    "/images/hero1.jpg",
-    "/images/hero2.jpg",
-    "/images/hero3.jpg",
-    // Add more images as needed
-  ];
-
   return (
-    <Box width="100%" height="500px" overflow="hidden">
+    <Box width="100%" height={["310px", "410px"]} overflow="hidden">
       <Slider {...settings}>
         {products.map((src, index) => (
           <Link
