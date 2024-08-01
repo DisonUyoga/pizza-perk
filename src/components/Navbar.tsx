@@ -108,11 +108,17 @@ const Navbar = () => {
               />
             </Link>
           </Flex>
-          <Tooltip label="logout">
-            <Box display={{ base: "block", md: "none" }}>
-              <UserButton />
+          <Tooltip label="menu">
+            <Box
+              display={{ base: "block", md: "none" }}
+              onClick={() => {
+                router.push("/menu");
+              }}
+            >
+              <FontAwesomeIcon icon={faUtensils} color="#FF9001" />
             </Box>
           </Tooltip>
+
           <Tooltip label="Open Cart">
             <Box
               display={{ base: "block", md: "none" }}
@@ -121,6 +127,11 @@ const Navbar = () => {
               }}
             >
               <FontAwesomeIcon icon={faShoppingCart} color="#fff" />
+            </Box>
+          </Tooltip>
+          <Tooltip label="logout">
+            <Box display={{ base: "block", md: "none" }}>
+              <UserButton />
             </Box>
           </Tooltip>
           <HStack
