@@ -22,7 +22,7 @@ import DrawerComponent from "./Drawer";
 import { useAppSelector } from "@/lib/hook";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import Test from "./Test";
+
 const Links = [
   {
     display: "Home",

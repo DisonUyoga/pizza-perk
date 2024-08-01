@@ -9,7 +9,6 @@ import Offer from "@/components/Offer";
 import Featured from "@/components/Featured";
 import Slider from "@/components/Slider";
 import Error from "./error";
-import Test from "@/components/Test";
 
 interface HomeProps {
   searchParams: {
