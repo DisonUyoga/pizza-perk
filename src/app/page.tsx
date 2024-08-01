@@ -9,6 +9,7 @@ import Offer from "@/components/Offer";
 import Featured from "@/components/Featured";
 import Slider from "@/components/Slider";
 import Error from "./error";
+import HeroSlider from "@/components/Carousel";
 
 interface HomeProps {
   searchParams: {
@@ -47,9 +48,9 @@ export default async function Home() {
           <Stack bg={"#161622"} flex={1} minHeight="100vh">
             <Offer delivery={delivery as any} products={data} />
 
-            <Slider />
+            <HeroSlider products={data} />
 
-            <Featured products={data} />
+            <Slider />
           </Stack>
         )}
       </Suspense>

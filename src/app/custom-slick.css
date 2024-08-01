@@ -1,0 +1,8 @@
+/* custom-slick.css */
+.slick-dots li button:before {
+  color: #ff9001; /* Default dot color */
+}
+
+.slick-dots li.slick-active button:before {
+  color: #fff; /* Active dot color */
+}

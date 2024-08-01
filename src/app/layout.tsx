@@ -1,7 +1,9 @@
 import AosProvider from "@/components/AosProvider";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./custom-slick.css";
 import { createClient } from "@/lib/supabase";
 import { ChakraProvider, Stack } from "@chakra-ui/react";
 import { ClerkProvider } from "@clerk/nextjs";

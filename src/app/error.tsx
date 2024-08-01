@@ -14,7 +14,7 @@ interface ErrorProps {
 
 export default function Error({ name, message }: ErrorProps) {
   return (
-    <Alert status="error" flex={1}>
+    <Alert status="error" flex={1} minHeight={"100vh"}>
       <AlertIcon />
       <AlertTitle textAlign={"center"}>Something went wrong!!</AlertTitle>
       {message && <AlertDescription>{message}</AlertDescription>}
