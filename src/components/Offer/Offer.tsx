@@ -8,6 +8,7 @@ import { Tables } from "@/type";
 import { Box, Grid, GridItem, Heading, Image, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import s from "./Offer.module.css";
+import Link from "next/link";
 
 interface OfferProps {
   delivery: Tables<"delivery">[];
@@ -109,19 +110,21 @@ const Offer = ({ delivery, products }: OfferProps) => {
         </Box>
       </GridItem>
       <GridItem width={"100%"}>
-        <Box
-          className={s.hero_img}
-          data-aos="fade-down"
-          data-aos-easing="linear"
-          data-aos-duration="1500"
-          // width={"100%"}
-          aspectRatio={[3 / 2, "auto"]}
-        >
-          <ProductImage
-            fallback="/offerProduct.png"
-            path={(prodctOnOffer?.image as string) || "/offerProduct.png"}
-          />
-        </Box>
+        <Link href={`/product/${prodctOnOffer?.id}`}>
+          <Box
+            className={s.hero_img}
+            data-aos="fade-down"
+            data-aos-easing="linear"
+            data-aos-duration="1500"
+            // width={"100%"}
+            aspectRatio={[3 / 2, "auto"]}
+          >
+            <ProductImage
+              fallback="/offerProduct.png"
+              path={(prodctOnOffer?.image as string) || "/offerProduct.png"}
+            />
+          </Box>
+        </Link>
       </GridItem>
     </Grid>
   );
