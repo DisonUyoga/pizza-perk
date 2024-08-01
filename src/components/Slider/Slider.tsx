@@ -79,8 +79,8 @@ const Slider: FC<Props> = ({ className, variant }) => {
       </div>
       {/* IMAGE CONTAINER  */}
       <div
-        className="flex-1 w-full relative aspect-4/3"
-        data-aos="fade-left"
+        className="flex-1 w-full relative aspect-4/3 md:aspect-auto"
+        data-aos="zoom-out-up"
         data-aos-duration="1500"
       >
         <Image
