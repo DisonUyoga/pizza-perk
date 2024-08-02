@@ -18,6 +18,8 @@
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@reduxjs/toolkit": "^2.2.6",
+    "@stripe/react-stripe-js": "^2.7.3",
+    "@stripe/stripe-js": "^4.1.0",
     "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.44.4",
@@ -46,11 +48,13 @@
     "svix": "^1.25.0"
   },
   "devDependencies": {
+    "@clerk/testing": "^1.2.5",
     "@types/aos": "^3.0.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/react-slick": "^0.23.13",
+    "cypress": "^13.13.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "postcss": "^8",

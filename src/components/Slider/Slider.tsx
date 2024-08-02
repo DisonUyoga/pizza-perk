@@ -56,6 +56,7 @@ const Slider: FC<Props> = ({ className, variant }) => {
       {/* TEXT CONTAINER */}
       <div className={s.slider_hero_header}>
         <h1
+          data-cy="hero1"
           className={cn(s.slider_header)}
           data-aos="zoom-in-up"
           data-aos-duration="2000"
@@ -63,6 +64,7 @@ const Slider: FC<Props> = ({ className, variant }) => {
           {data[currentSlide].title}
         </h1>
         <Button
+          data-cy="navigate_to_menu"
           as={motion.button}
           variant="solid"
           bg="#FF9C01"

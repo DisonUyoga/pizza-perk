@@ -9,6 +9,7 @@ import { Box, Grid, GridItem, Heading, Image, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import s from "./Offer.module.css";
 import Link from "next/link";
+import CountDown from "../CountDown";
 
 interface OfferProps {
   delivery: Tables<"delivery">[];
@@ -90,6 +91,7 @@ const Offer = ({ delivery, products }: OfferProps) => {
           gap={4}
         >
           <Heading
+            data-cy="hero title"
             as={"h1"}
             fontSize={["4xl", "6xl"]}
             color={"#fff"}
@@ -107,6 +109,9 @@ const Offer = ({ delivery, products }: OfferProps) => {
             &quot;Discover PizzaPerk: Your Crave-Worthy Shortcut to Delicious
             Pizza Bliss!&quot;
           </Text>
+          {delivery[0]?.countdown && (
+            <CountDown date={delivery[0]?.countdown} />
+          )}
         </Box>
       </GridItem>
       <GridItem width={"100%"} data-aos="zoom-in-up" data-aos-duration="2000">

@@ -27,9 +27,7 @@ export default async function Home() {
     await createClient().auth.signOut();
     return redirect("/sign-in");
   }
-  // if (!session.session) {
-  //   return redirect("/sign-in");
-  // }
+
   const { data, error } = await createClient()
     .from("products")
     .select("*, categories(*)")
@@ -44,6 +42,7 @@ export default async function Home() {
       fallback={<Error name={error?.code} message={error?.message} />}
     >
       <Suspense fallback={<Loading />}>
+      
         {data && delivery && data?.length > 0 && delivery?.length > 0 && (
           <Stack bg={"#161622"} flex={1} minHeight="100vh">
             <Offer delivery={delivery as any} products={data} />
