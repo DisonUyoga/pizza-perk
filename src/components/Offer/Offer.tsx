@@ -95,7 +95,8 @@ const Offer = ({ delivery, products }: OfferProps) => {
             as={"h1"}
             fontSize={["4xl", "6xl"]}
             color={"#fff"}
-            data-aos="zoom-out-up"
+            data-aos="flip-left"
+            data-aos-easing="ease-out-cubic"
             data-aos-duration="2000"
           >
             PizzaPerk
@@ -103,7 +104,8 @@ const Offer = ({ delivery, products }: OfferProps) => {
           <Text
             color={"#f3eeee"}
             textAlign={"center"}
-            data-aos="zoom-out-up"
+            data-aos="flip-left"
+            data-aos-easing="ease-out-cubic"
             data-aos-duration="2000"
           >
             &quot;Discover PizzaPerk: Your Crave-Worthy Shortcut to Delicious
