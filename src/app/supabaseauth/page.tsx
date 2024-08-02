@@ -71,7 +71,7 @@ const SupabaseAuth = () => {
       const { data, error } = await supabase.auth.getSession();
 
       if (!error) {
-        toast.success("login successfull");
+        toast.success(`welcome ${name}!`);
         dispatch(
           sessionToken({
             session: {
