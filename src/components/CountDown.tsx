@@ -21,17 +21,13 @@ const CountDown = ({ date }: CountDownProps) => {
     }
   }
   return (
-    <div className="flex-col items-center justify-center">
-      {deliveryTag && (
-        <p
-          className="text-gray-100 mb-2"
-          data-aos="flip-left"
-          data-aos-easing="ease-out-cubic"
-          data-aos-duration="2000"
-        >
-          Free Delivery Now
-        </p>
-      )}
+    <div
+      className="flex-col items-center justify-center"
+      data-aos="flip-left"
+      data-aos-easing="ease-out-cubic"
+      data-aos-duration="2000"
+    >
+      {deliveryTag && <p className="text-gray-100 mb-2">Free Delivery Now</p>}
       {deliveryTag && (
         <Countdown className="font-bold text-2xl text-yellow-300" date={date} />
       )}
